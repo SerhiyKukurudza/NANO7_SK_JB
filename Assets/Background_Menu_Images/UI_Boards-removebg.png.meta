@@ -61,7 +61,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -99,7 +99,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -140,12 +140,12 @@ TextureImporter:
       name: UI_Boards-removebg_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 142
-        width: 306
-        height: 216
+        x: 14
+        y: 141
+        width: 308
+        height: 218
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: UI_Boards-removebg_1
       rect:
         serializedVersion: 2
-        x: 335
-        y: 145
-        width: 142
-        height: 213
+        x: 334
+        y: 144
+        width: 144
+        height: 215
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: UI_Boards-removebg_2
       rect:
         serializedVersion: 2
-        x: 489
-        y: 251
-        width: 164
-        height: 107
+        x: 488
+        y: 250
+        width: 166
+        height: 109
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: UI_Boards-removebg_3
       rect:
         serializedVersion: 2
-        x: 15
-        y: 73
-        width: 160
-        height: 49
+        x: 14
+        y: 72
+        width: 162
+        height: 51
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: UI_Boards-removebg_4
       rect:
         serializedVersion: 2
-        x: 188
-        y: 73
-        width: 130
-        height: 48
+        x: 187
+        y: 72
+        width: 132
+        height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,12 +250,12 @@ TextureImporter:
       name: UI_Boards-removebg_5
       rect:
         serializedVersion: 2
-        x: 334
-        y: 13
-        width: 142
-        height: 118
+        x: 333
+        y: 12
+        width: 144
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -272,12 +272,12 @@ TextureImporter:
       name: UI_Boards-removebg_6
       rect:
         serializedVersion: 2
-        x: 490
-        y: 14
-        width: 163
-        height: 219
+        x: 489
+        y: 13
+        width: 165
+        height: 221
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -294,12 +294,12 @@ TextureImporter:
       name: UI_Boards-removebg_7
       rect:
         serializedVersion: 2
-        x: 15
-        y: 13
-        width: 160
-        height: 46
+        x: 14
+        y: 12
+        width: 162
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -316,12 +316,12 @@ TextureImporter:
       name: UI_Boards-removebg_8
       rect:
         serializedVersion: 2
-        x: 188
-        y: 13
-        width: 130
-        height: 47
+        x: 187
+        y: 12
+        width: 132
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -338,7 +338,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 728b6e4d8c6930d42bc80aa9e020a70a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -346,9 +346,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
       UI_Boards-removebg_0: -2611563688177303912
       UI_Boards-removebg_1: -5422112849807004817
