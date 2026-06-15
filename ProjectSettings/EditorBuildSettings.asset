@@ -10,10 +10,22 @@ EditorBuildSettings:
     guid: 42c750804fa1adc488bb60c2c0049cc0
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
-    guid: ef56e155c37f12c43bad279902230dce
+    guid: 057158dd84e4c4540b914fa51e0cda69
   - enabled: 1
     path: Assets/Scenes/LoadGame.unity
     guid: b56892f17ea4dc740ac527ee34675ecf
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: fa5ca414a46ee0949af1e36266e91326
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: d08dfd992f26bd84e822fbfa06ebaca4
+  - enabled: 1
+    path: Assets/Scenes/WinMenu.unity
+    guid: b73f4c5a49d42884fa708deff035166b
+  - enabled: 1
+    path: Assets/Scenes/GameOverMenu.unity
+    guid: 02d61a61d289f0e41ae3eaa3ef0afbc3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
