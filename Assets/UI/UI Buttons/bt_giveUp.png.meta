@@ -116,10 +116,10 @@ TextureImporter:
       name: bt_giveUp_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1040
-        height: 164
+        x: 41
+        y: 7
+        width: 993
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
