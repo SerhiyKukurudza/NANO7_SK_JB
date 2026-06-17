@@ -1,12 +1,42 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     private bool gameStarted = false;
     private bool isPaused = false;
 
+    //void Start()
+    //{
+    //    StartCoroutine(ApplyResolutionNextFrame());
+    //}
+    //IEnumerator ApplyResolutionNextFrame()
+    //{
+    //    yield return null; // espera 1 frame
+
+    //    ApplySavedResolution();
+    //}
+    //void ApplySavedResolution()
+    //{
+    //    int index = PlayerPrefs.GetInt("Resolution", -1);
+
+    //    Resolution[] resolutions = Screen.resolutions;
+
+    //    if (index >= 0 && index < resolutions.Length)
+    //    {
+    //        Resolution r = resolutions[index];
+    //        Screen.SetResolution(r.width, r.height, Screen.fullScreen);
+    //    }
+    //    else
+    //    {
+    //        // primeira execução faz fallback seguro
+    //        Screen.SetResolution(1920, 1080, true);
+    //        PlayerPrefs.SetInt("Resolution", 0);
+    //        PlayerPrefs.Save();
+    //    }
+    //}
     void Update()
     {
         if (!gameStarted) return;
