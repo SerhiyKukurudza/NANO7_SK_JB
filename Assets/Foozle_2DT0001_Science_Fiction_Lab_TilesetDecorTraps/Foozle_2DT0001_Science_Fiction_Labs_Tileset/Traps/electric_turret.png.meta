@@ -142,7 +142,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -180,7 +180,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -221,12 +221,12 @@ TextureImporter:
       name: electric_turret_0
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -243,12 +243,12 @@ TextureImporter:
       name: electric_turret_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -265,12 +265,12 @@ TextureImporter:
       name: electric_turret_2
       rect:
         serializedVersion: 2
-        x: 160
+        x: 128
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -287,12 +287,12 @@ TextureImporter:
       name: electric_turret_3
       rect:
         serializedVersion: 2
-        x: 224
+        x: 192
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -309,12 +309,12 @@ TextureImporter:
       name: electric_turret_4
       rect:
         serializedVersion: 2
-        x: 288
+        x: 256
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -331,12 +331,12 @@ TextureImporter:
       name: electric_turret_5
       rect:
         serializedVersion: 2
-        x: 352
+        x: 320
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -353,12 +353,12 @@ TextureImporter:
       name: electric_turret_6
       rect:
         serializedVersion: 2
-        x: 416
+        x: 384
         y: 0
-        width: 33
-        height: 24
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -375,12 +375,12 @@ TextureImporter:
       name: electric_turret_7
       rect:
         serializedVersion: 2
-        x: 479
+        x: 448
         y: 0
-        width: 34
-        height: 23
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -397,12 +397,12 @@ TextureImporter:
       name: electric_turret_8
       rect:
         serializedVersion: 2
-        x: 545
+        x: 512
         y: 0
-        width: 31
-        height: 27
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -419,12 +419,12 @@ TextureImporter:
       name: electric_turret_9
       rect:
         serializedVersion: 2
-        x: 608
+        x: 576
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -441,12 +441,12 @@ TextureImporter:
       name: electric_turret_10
       rect:
         serializedVersion: 2
-        x: 672
+        x: 640
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -463,12 +463,12 @@ TextureImporter:
       name: electric_turret_11
       rect:
         serializedVersion: 2
-        x: 736
+        x: 704
         y: 0
-        width: 33
-        height: 26
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -482,37 +482,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_12
-      rect:
-        serializedVersion: 2
-        x: 797
-        y: 0
-        width: 36
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c6ecaf2d721364e70800000000000000
-      internalID: 9099014144261803628
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_13
       rect:
         serializedVersion: 2
-        x: 860
-        y: 15
-        width: 9
-        height: 12
+        x: 832
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -526,37 +504,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_14
-      rect:
-        serializedVersion: 2
-        x: 861
-        y: 0
-        width: 36
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4ffc213ef33ed7380800000000000000
-      internalID: -8971765019120054284
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_15
       rect:
         serializedVersion: 2
-        x: 921
+        x: 960
         y: 0
-        width: 40
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -570,37 +526,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_16
-      rect:
-        serializedVersion: 2
-        x: 923
-        y: 24
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff8fabbf413bb4dd0800000000000000
-      internalID: -2500708265370126081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_17
       rect:
         serializedVersion: 2
-        x: 987
+        x: 1088
         y: 0
-        width: 38
+        width: 64
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -614,37 +548,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_18
-      rect:
-        serializedVersion: 2
-        x: 1056
-        y: 0
-        width: 33
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee65a457346377930800000000000000
-      internalID: 4140838045748975342
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_19
       rect:
         serializedVersion: 2
-        x: 1111
+        x: 1216
         y: 0
-        width: 42
-        height: 31
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -661,12 +573,12 @@ TextureImporter:
       name: electric_turret_20
       rect:
         serializedVersion: 2
-        x: 1151
-        y: 12
-        width: 34
-        height: 16
+        x: 1280
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -680,37 +592,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_21
-      rect:
-        serializedVersion: 2
-        x: 1184
-        y: 0
-        width: 33
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 12c2c601915c12080800000000000000
-      internalID: -9213866651182945247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_22
       rect:
         serializedVersion: 2
-        x: 1215
-        y: 9
-        width: 33
-        height: 17
+        x: 1408
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -724,37 +614,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_23
-      rect:
-        serializedVersion: 2
-        x: 1246
-        y: 0
-        width: 35
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b9eb6d6fe7364d930800000000000000
-      internalID: 4167064952182849179
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: electric_turret_24
       rect:
         serializedVersion: 2
-        x: 1279
-        y: 12
-        width: 9
-        height: 9
+        x: 1536
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -768,243 +636,133 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_25
+      name: electric_turret_12
       rect:
         serializedVersion: 2
-        x: 1291
-        y: 22
-        width: 14
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa1878dcc0a8c5ce0800000000000000
-      internalID: -1415104395308727889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: electric_turret_26
-      rect:
-        serializedVersion: 2
-        x: 1302
-        y: 15
-        width: 11
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fef8df6b3d0424c00800000000000000
-      internalID: 883339754970386415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: electric_turret_27
-      rect:
-        serializedVersion: 2
-        x: 1311
+        x: 768
         y: 0
-        width: 34
-        height: 28
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 26a0771b0dcbfff00800000000000000
-      internalID: 1152847634146724450
+      spriteID: df942edbfbc385f44ad25e1c189b20a7
+      internalID: 9099014144261803628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_28
+      name: electric_turret_14
       rect:
         serializedVersion: 2
-        x: 1376
+        x: 896
         y: 0
-        width: 38
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: df8ccbb85829f8170800000000000000
-      internalID: 8182920150228191485
+      spriteID: d1ff5f94b9702b64fbc0bb9a334d5c25
+      internalID: -8971765019120054284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_29
+      name: electric_turret_16
       rect:
         serializedVersion: 2
-        x: 1414
-        y: 20
-        width: 18
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5deec8258dd8be2e0800000000000000
-      internalID: -2095425241373413675
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: electric_turret_30
-      rect:
-        serializedVersion: 2
-        x: 1434
-        y: 14
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 65d880e7aa0d0cb50800000000000000
-      internalID: 6611513683657395542
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: electric_turret_31
-      rect:
-        serializedVersion: 2
-        x: 1440
+        x: 1024
         y: 0
-        width: 35
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a62f8f4066af45270800000000000000
-      internalID: 8238484934444511850
+      spriteID: a5d379ac7703ab249a29110b8dd2c2a3
+      internalID: -2500708265370126081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_32
+      name: electric_turret_18
       rect:
         serializedVersion: 2
-        x: 1478
-        y: 15
-        width: 27
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a1301c2a69ea660e0800000000000000
-      internalID: -2276940599590321382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: electric_turret_33
-      rect:
-        serializedVersion: 2
-        x: 1504
+        x: 1152
         y: 0
-        width: 33
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9de064d818a47cad0800000000000000
-      internalID: -2682093132794425639
+      spriteID: f8bdc7fcf0a7ac3438ad437dbde73d4d
+      internalID: 4140838045748975342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_34
+      name: electric_turret_21
       rect:
         serializedVersion: 2
-        x: 1568
+        x: 1344
         y: 0
-        width: 32
-        height: 25
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 81e2bb6b181c4da40800000000000000
-      internalID: 5392147416729988632
+      spriteID: 3304013e08294b44597327ce2959186d
+      internalID: -9213866651182945247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: electric_turret_35
+      name: electric_turret_23
       rect:
         serializedVersion: 2
-        x: 1289
-        y: 10
-        width: 11
-        height: 9
+        x: 1472
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fa672990716cbd400800000000000000
-      internalID: 350091198298486447
+      spriteID: 7f33b844b55c73d40ba7ac896924d112
+      internalID: 4167064952182849179
       vertices: []
       indices: 
       edges: []
@@ -1013,7 +771,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e1f1c98990022bb40904a84dc502b84a
     internalID: 0
     vertices: []
     indices: 
@@ -1021,7 +779,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       electric_turret_0: 4290917670762974922
       electric_turret_1: 5716217351907241777
@@ -1041,18 +801,7 @@ TextureImporter:
       electric_turret_22: -5826615131248334021
       electric_turret_23: 4167064952182849179
       electric_turret_24: 2710147774784370051
-      electric_turret_25: -1415104395308727889
-      electric_turret_26: 883339754970386415
-      electric_turret_27: 1152847634146724450
-      electric_turret_28: 8182920150228191485
-      electric_turret_29: -2095425241373413675
       electric_turret_3: -454720683015034482
-      electric_turret_30: 6611513683657395542
-      electric_turret_31: 8238484934444511850
-      electric_turret_32: -2276940599590321382
-      electric_turret_33: -2682093132794425639
-      electric_turret_34: 5392147416729988632
-      electric_turret_35: 350091198298486447
       electric_turret_4: 4083433931146768840
       electric_turret_5: -5698494869995660913
       electric_turret_6: -6559995205204633730
