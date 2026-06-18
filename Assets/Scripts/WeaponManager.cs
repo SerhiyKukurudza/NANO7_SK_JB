@@ -247,4 +247,31 @@ public class WeaponManager : MonoBehaviour
     {
         currentLevel = level;
     }
+
+    public void RestoreWeaponState(bool[] unlockedState, int selectedWeaponIndex)
+    {
+        for (int i = 0; i < unlockedWeapons.Length; i++)
+        {
+            bool shouldUnlock = unlockedState != null && i < unlockedState.Length && unlockedState[i] && allWeapons[i] != null;
+
+            unlockedWeapons[i] = shouldUnlock ? allWeapons[i] : null;
+
+            if (shouldUnlock)
+            {
+                UpdateHotbarDisplay(i);
+            }
+            else
+            {
+                SetSlotLockedVisual(i);
+            }
+        }
+
+        if (selectedWeaponIndex >= 0 && selectedWeaponIndex < unlockedWeapons.Length && unlockedWeapons[selectedWeaponIndex] != null)
+        {
+            SelectWeapon(selectedWeaponIndex);
+            return;
+        }
+
+        currentWeaponIndex = -1;
+    }
 }

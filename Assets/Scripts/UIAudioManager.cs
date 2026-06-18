@@ -25,7 +25,7 @@ public class UIAudioManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // UiManager already persists across scenes, so this component should not call DontDestroyOnLoad directly.
 
         // MUSIC SOURCE
         musicSource = gameObject.AddComponent<AudioSource>();
@@ -43,6 +43,15 @@ public class UIAudioManager : MonoBehaviour
 
         LoadVolumeSettings();
         PlayMainMenuMusic();
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Instance = null;
+        }
     }
 
     void Start()
