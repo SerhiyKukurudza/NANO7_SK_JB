@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyPatrol : MonoBehaviour
 {
@@ -7,11 +8,15 @@ public class EnemyPatrol : MonoBehaviour
     private int i;
     private SpriteRenderer spriteRenderer;
 
+    public int maxHealth = 100;
+    private int currentHealth;
+
     public int damage = 1;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        currentHealth = maxHealth;
     }
 
     void Update()
