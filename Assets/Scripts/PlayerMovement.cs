@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false;
     private bool isDashing = false;
     private float nextDashCooldown = 0f;
-    private bool canJump = true;
     
     // Animator parameter hashes (for performance)
     private int hashVelocity = Animator.StringToHash("Velocity");
@@ -142,8 +141,6 @@ public class PlayerMovement : MonoBehaviour
         // Apply jump force
         velocity.y = jumpForce;
         rb.linearVelocity = velocity;
-        
-        canJump = false;
     }
 
     private void Dash()
