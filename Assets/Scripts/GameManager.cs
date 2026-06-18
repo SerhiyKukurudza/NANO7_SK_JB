@@ -5,12 +5,20 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    private bool gameStarted = false;
     private bool isPaused = false;
+    private static string pausedFromScene = string.Empty;
+
+    void Start()
+    {
+        if (!PlayerPrefs.HasKey("LevelReached"))
+        {
+            PlayerPrefs.SetInt("LevelReached", 1);
+            PlayerPrefs.Save();
+        }
+    }
 
     //void Start()
     //{
-    //    StartCoroutine(ApplyResolutionNextFrame());
     //}
     //IEnumerator ApplyResolutionNextFrame()
     //{
@@ -31,7 +39,7 @@ public class GameManager : MonoBehaviour
     //    }
     //    else
     //    {
-    //        // primeira execução faz fallback seguro
+    //        // primeira execuï¿½ï¿½o faz fallback seguro
     //        Screen.SetResolution(1920, 1080, true);
     //        PlayerPrefs.SetInt("Resolution", 0);
     //        PlayerPrefs.Save();
@@ -39,9 +47,21 @@ public class GameManager : MonoBehaviour
     //}
     void Update()
     {
-        if (!gameStarted) return;
+        if (!IsGameplayScene(SceneManager.GetActiveScene().name))
+        {
+            return;
+        }
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        bool escapePressed = false;
+#if ENABLE_LEGACY_INPUT_MANAGER
+        escapePressed = Input.GetKeyDown(KeyCode.Escape);
+#endif
+        if (!escapePressed && Keyboard.current != null)
+        {
+            escapePressed = Keyboard.current.escapeKey.wasPressedThisFrame;
+        }
+
+        if (escapePressed)
         {
             if (isPaused)
                 ResumeGame();
@@ -52,21 +72,30 @@ public class GameManager : MonoBehaviour
 
     public void LevelSelect()
     {
-        gameStarted = true;
-        UIAudioManager.Instance.PlayClick();
-        Time.timeScale = 1;
+        UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
         SceneManager.LoadScene("LevelSelect");
     }
 
     public void LoadGame()
     {
-        UIAudioManager.Instance.PlayClick();
-        SceneManager.LoadScene("LoadGame");
+        UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
+        UiManager manager = UiManager.Instance ?? UiManager.EnsureInstance();
+        manager.LoadSavedGame();
+    }
+
+    public void SaveGame()
+    {
+        UIAudioManager.Instance?.PlayClick();
+        UiManager manager = UiManager.Instance ?? UiManager.EnsureInstance();
+        manager.SaveGameNow();
     }
 
     public void SettingsGame()
     {
-        UIAudioManager.Instance.PlayClick();
+        UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
         SceneManager.LoadScene("Settings");
     }
 
@@ -79,13 +108,22 @@ public class GameManager : MonoBehaviour
     public static void MainMenu()
     {
         UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void PauseGame()
     {
+        string activeScene = SceneManager.GetActiveScene().name;
+        if (IsGameplayScene(activeScene))
+        {
+            pausedFromScene = activeScene;
+        }
+
         isPaused = true;
-        UIAudioManager.Instance.PlayClick();
+        UIAudioManager.Instance?.PlayClick();
+        UiManager manager = UiManager.Instance ?? UiManager.EnsureInstance();
+        manager.SaveGameNow();
         SceneManager.LoadScene("PauseMenu");
         Time.timeScale = 0;
         AudioListener.pause = true;
@@ -94,39 +132,36 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
-        UIAudioManager.Instance.PlayClick();
-        SceneManager.LoadScene("LevelSelect");
-        Time.timeScale = 1;
-        AudioListener.pause = false;
+        UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
+
+        UiManager manager = UiManager.Instance ?? UiManager.EnsureInstance();
+        if (manager.LoadSavedGame())
+        {
+            return;
+        }
+
+        string sceneToResume = string.IsNullOrWhiteSpace(pausedFromScene) ? "LevelSelect" : pausedFromScene;
+        SceneManager.LoadScene(sceneToResume);
     }
 
     public void RestartGame()
     {
-        UIAudioManager.Instance.PlayClick();
-        Time.timeScale = 1;
-        SceneManager.LoadScene("LevelSelect");
+        UIAudioManager.Instance?.PlayClick();
+        RestoreGlobalRuntimeState();
+        string sceneToRestart = string.IsNullOrWhiteSpace(pausedFromScene) ? "LevelSelect" : pausedFromScene;
+        SceneManager.LoadScene(sceneToRestart);
     }
 
-//    // Static methods for buttons to call without needing GameObject reference
-//    public static void StaticQuitGame()
-//    {
-//        Debug.Log("Quit button pressed");
-//#if UNITY_EDITOR
-//        UnityEditor.EditorApplication.isPlaying = false;
-//#else
-//            Application.Quit();
-//#endif
-//    }
+    private bool IsGameplayScene(string sceneName)
+    {
+        return sceneName == "Level1" || sceneName == "Level2" || sceneName == "Level3";
+    }
 
-//    public static void StaticRestartGame()
-//    {
-//        Time.timeScale = 1;
-//        SceneManager.LoadScene("LevelSelect");
-//    }
+    private static void RestoreGlobalRuntimeState()
+    {
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+    }
 
-//    public static void StaticGoToMainMenu()
-//    {
-//        Time.timeScale = 1;
-//        SceneManager.LoadScene("MainMenu");
-//    }
 }

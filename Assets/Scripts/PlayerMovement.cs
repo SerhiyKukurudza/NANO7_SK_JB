@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false;
     private bool isDashing = false;
     private float nextDashCooldown = 0f;
-    private bool canJump = true;
     
     // Animator parameter hashes (for performance)
     private int hashVelocity = Animator.StringToHash("Velocity");
@@ -40,11 +39,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        if (rb == null) Debug.LogError("Rigidbody2D not found!");
-        if (animator == null) Debug.LogError("Animator not found!");
-        if (spriteRenderer == null) Debug.LogError("SpriteRenderer not found!");
-        if (groundChecker == null) Debug.LogError("Ground checker not assigned!");
         
         // Configure Rigidbody2D for platformer
         if (rb != null)
@@ -142,8 +136,6 @@ public class PlayerMovement : MonoBehaviour
         // Apply jump force
         velocity.y = jumpForce;
         rb.linearVelocity = velocity;
-        
-        canJump = false;
     }
 
     private void Dash()

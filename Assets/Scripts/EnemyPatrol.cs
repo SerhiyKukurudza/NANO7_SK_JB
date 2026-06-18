@@ -33,15 +33,51 @@ public class EnemyPatrol : MonoBehaviour
         spriteRenderer.flipX = (transform.position.x - patrolPoints[i].position.x) < 0f;
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        Player player = other.GetComponent<Player>();
-    //        if (player != null)
-    //        {
-    //            player.TakeDamage(GameManager.Instance.enemyDamage);
-    //        }
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        ApplyDamageIfPlayer(other.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        ApplyDamageIfPlayer(collision.gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        ApplyDamageIfPlayer(other.gameObject);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        ApplyDamageIfPlayer(collision.gameObject);
+    }
+
+    private void ApplyDamageIfPlayer(GameObject candidate)
+    {
+        if (candidate == null)
+        {
+            return;
+        }
+
+        if (!candidate.CompareTag("Player") && !candidate.transform.root.CompareTag("Player"))
+        {
+            return;
+        }
+
+        PlayerHealth playerHealth = candidate.GetComponent<PlayerHealth>();
+        if (playerHealth == null)
+        {
+            playerHealth = candidate.GetComponentInParent<PlayerHealth>();
+        }
+        if (playerHealth == null)
+        {
+            playerHealth = candidate.GetComponentInChildren<PlayerHealth>();
+        }
+
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+        }
+    }
 }
