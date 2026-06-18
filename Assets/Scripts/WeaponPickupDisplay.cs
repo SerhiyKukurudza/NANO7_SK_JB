@@ -76,7 +76,7 @@ public class WeaponPickupDisplay : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No weapon sprite assigned to WeaponPickupDisplay!");
+            spriteRenderer.sprite = null;
         }
         
         // Store starting position for bobbing
@@ -106,18 +106,15 @@ public class WeaponPickupDisplay : MonoBehaviour
     {
         // Mark as picked up
         alreadyPickedUp = true;
-        Debug.Log($"[WeaponPickupDisplay] OnPickedUp called on {gameObject.name}");
         
         // Disable collider so it can't be picked up again
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
             collider.enabled = false;
-            Debug.Log($"[WeaponPickupDisplay] Collider disabled on {gameObject.name}");
         }
         
         // Fade out and destroy
-        Debug.Log($"[WeaponPickupDisplay] Starting fade coroutine on {gameObject.name}");
         StartCoroutine(FadeOutAndDestroy());
     }
 
@@ -131,7 +128,6 @@ public class WeaponPickupDisplay : MonoBehaviour
         float elapsedTime = 0f;
         float fadeDuration = 0.3f;
         Color originalColor = spriteRenderer.color;
-        Debug.Log($"[WeaponPickupDisplay] FadeOutAndDestroy coroutine started on {gameObject.name}");
         
         while (elapsedTime < fadeDuration)
         {
@@ -142,7 +138,6 @@ public class WeaponPickupDisplay : MonoBehaviour
         }
         
         // Destroy after fade
-        Debug.Log($"[WeaponPickupDisplay] Destroying {gameObject.name}");
         Destroy(gameObject);
     }
 }

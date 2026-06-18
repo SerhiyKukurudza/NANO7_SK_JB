@@ -20,11 +20,6 @@ public class ButtonEffects : MonoBehaviour
         audioSource.spatialBlend = 0f;
 
         clickSound = Resources.Load<AudioClip>("Audio/sci-fi-ui-sfx/JDSherbert - Sci Fi UI SFX Pack - Cancel - 1");
-
-        if (clickSound == null)
-        {
-            Debug.LogWarning("Not found: Resources/sci-fi-ui-sfx/JDSherbert - Sci Fi UI SFX Pack - Cancel - 1.mp3");
-        }
     } 
 
     public void OnHoverEnterEffect(GameObject go)

@@ -26,19 +26,17 @@ public class PlayerWeaponAnimator : MonoBehaviour
         
         if (animator == null)
         {
-            Debug.LogError("Animator not found on Player!");
             return;
         }
         
         if (weaponManager == null)
         {
-            Debug.LogError("WeaponManager not found in scene!");
             return;
         }
 
         if (!HasBoolParameter("HasWeapon") || !HasBoolParameter("HasPistol") || !HasBoolParameter("HasRifle") || !HasBoolParameter("HasShotgun"))
         {
-            Debug.LogError("Animator is missing one or more Bool parameters: HasWeapon, HasPistol, HasRifle, HasShotgun.");
+            return;
         }
         
         // Initialize with no weapon selected.
@@ -66,7 +64,6 @@ public class PlayerWeaponAnimator : MonoBehaviour
         if (animator == null) return;
         
         SetWeaponFlags(slotIndex);
-        Debug.Log("Player animation updated: weapon flags set for slot " + slotIndex + " (" + newWeapon.weaponName + ")");
     }
 
     private void SetWeaponFlags(int weaponIndex)

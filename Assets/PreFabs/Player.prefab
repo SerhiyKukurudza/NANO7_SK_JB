@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 3373453876445941992}
   - component: {fileID: 6029640171627124342}
   - component: {fileID: 29434687289650308}
-  - component: {fileID: 1172536193662413356}
   - component: {fileID: 7615754329957942472}
+  - component: {fileID: 1172536193662413356}
+  - component: {fileID: 6697947940119287939}
+  - component: {fileID: -655595920975058136}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -160,6 +162,28 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0031840007, y: -0.006586711}
   m_Size: {x: 0.10481771, y: 0.16496786}
   m_Direction: 0
+--- !u!95 &7615754329957942472
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606514730250042116}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebdbdad36f7902042bd966afe4300452, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1172536193662413356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,28 +207,39 @@ MonoBehaviour:
   dashForce: 10
   dashRecoveryCooldown: 0.5
   dashDuration: 0.2
---- !u!95 &7615754329957942472
-Animator:
-  serializedVersion: 7
+--- !u!114 &6697947940119287939
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606514730250042116}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ebdbdad36f7902042bd966afe4300452, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52eadd2c83ca8a4aaedb07f8f29a60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAnimator
+--- !u!114 &-655595920975058136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606514730250042116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a32089ef4af0842905a8a25a7d6cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 100
+  healthBar: {fileID: 0}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3479703659807551525
 GameObject:
   m_ObjectHideFlags: 0

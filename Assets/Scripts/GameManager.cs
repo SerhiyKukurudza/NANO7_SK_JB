@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     //void Start()
     //{
-    //    StartCoroutine(ApplyResolutionNextFrame());
     //}
     //IEnumerator ApplyResolutionNextFrame()
     //{
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
     //    }
     //    else
     //    {
-    //        // primeira execução faz fallback seguro
+    //        // primeira execuï¿½ï¿½o faz fallback seguro
     //        Screen.SetResolution(1920, 1080, true);
     //        PlayerPrefs.SetInt("Resolution", 0);
     //        PlayerPrefs.Save();
@@ -107,26 +106,4 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LevelSelect");
     }
 
-//    // Static methods for buttons to call without needing GameObject reference
-//    public static void StaticQuitGame()
-//    {
-//        Debug.Log("Quit button pressed");
-//#if UNITY_EDITOR
-//        UnityEditor.EditorApplication.isPlaying = false;
-//#else
-//            Application.Quit();
-//#endif
-//    }
-
-//    public static void StaticRestartGame()
-//    {
-//        Time.timeScale = 1;
-//        SceneManager.LoadScene("LevelSelect");
-//    }
-
-//    public static void StaticGoToMainMenu()
-//    {
-//        Time.timeScale = 1;
-//        SceneManager.LoadScene("MainMenu");
-//    }
 }

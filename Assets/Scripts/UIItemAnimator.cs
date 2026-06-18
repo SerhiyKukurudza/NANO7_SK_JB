@@ -16,14 +16,12 @@ public class UIItemAnimator : MonoBehaviour
         
         if (itemImage == null)
         {
-            Debug.LogError("UIItemAnimator needs an Image component!");
             enabled = false;
             return;
         }
         
         if (animationFrames == null || animationFrames.Length == 0)
         {
-            Debug.LogWarning("No animation frames assigned to UIItemAnimator on " + gameObject.name);
             enabled = false;
             return;
         }

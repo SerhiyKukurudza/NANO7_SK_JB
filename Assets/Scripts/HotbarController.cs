@@ -17,7 +17,6 @@ public class HotbarController : MonoBehaviour
         weaponManager = FindFirstObjectByType<WeaponManager>();
         if (weaponManager == null)
         {
-            Debug.LogError("WeaponManager not found in scene!");
             return;
         }
 
@@ -64,7 +63,6 @@ public class HotbarController : MonoBehaviour
         
         if (weapon == null)
         {
-            Debug.LogWarning("Slot " + slotIndex + " is empty or locked!");
             return;
         }
         
@@ -82,7 +80,6 @@ public class HotbarController : MonoBehaviour
         }
         
         weaponManager.SelectWeapon(slotIndex);
-        Debug.Log("Selected weapon: " + weapon.weaponName);
     }
 
     private void HandleWeaponChanged(WeaponData newWeapon, int slotIndex)

@@ -50,20 +50,17 @@ public class WeaponManager : MonoBehaviour
         }
         
         // Hotbar starts completely empty
-        Debug.Log("Weapon system initialized - hotbar is empty");
     }
 
     public void PickupWeapon(int weaponIndex)
     {
         if (weaponIndex < 0 || weaponIndex >= allWeapons.Length)
         {
-            Debug.LogError("Invalid weapon index: " + weaponIndex);
             return;
         }
 
         if (allWeapons[weaponIndex] == null)
         {
-            Debug.LogError("Weapon data missing at index: " + weaponIndex);
             return;
         }
         
@@ -74,20 +71,17 @@ public class WeaponManager : MonoBehaviour
     {
         if (weaponIndex < 0 || weaponIndex >= unlockedWeapons.Length)
         {
-            Debug.LogError("Weapon index out of unlocked array range: " + weaponIndex);
             return;
         }
 
         if (weaponIndex >= hotbarSlots.Length)
         {
-            Debug.LogError("No matching hotbar slot for weapon index: " + weaponIndex);
             return;
         }
 
         // Do not unlock the same weapon twice.
         if (unlockedWeapons[weaponIndex] != null)
         {
-            Debug.Log("Weapon already unlocked: " + allWeapons[weaponIndex].weaponName);
             return;
         }
 
@@ -98,36 +92,25 @@ public class WeaponManager : MonoBehaviour
         // Auto-select the newly picked weapon so the animator updates immediately.
         SelectWeapon(weaponIndex);
 
-        Debug.Log("Weapon unlocked in slot " + weaponIndex + ": " + allWeapons[weaponIndex].weaponName);
-        Debug.Log($"[WeaponManager] Current state - currentWeaponIndex: {currentWeaponIndex}, unlockedWeapons[{weaponIndex}]: {(unlockedWeapons[weaponIndex] != null ? unlockedWeapons[weaponIndex].weaponName : "null")}");
     }
 
     public void SelectWeapon(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= unlockedWeapons.Length)
         {
-            Debug.LogError("Invalid slot index: " + slotIndex);
             return;
         }
         
         if (unlockedWeapons[slotIndex] == null)
         {
-            Debug.LogWarning("Slot is empty!");
             return;
         }
         
         currentWeaponIndex = slotIndex;
-        Debug.Log("Weapon selected: " + unlockedWeapons[slotIndex].weaponName);
-        
         // Trigger weapon change event
         if (OnWeaponChanged != null)
         {
             OnWeaponChanged(unlockedWeapons[slotIndex], slotIndex);
-            Debug.Log($"[WeaponManager] OnWeaponChanged event fired - slot {slotIndex}");
-        }
-        else
-        {
-            Debug.LogError("[WeaponManager] OnWeaponChanged delegate is NULL!");
         }
     }
 
@@ -135,7 +118,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (hotbarSlots[slotIndex] == null)
         {
-            Debug.LogError("Hotbar slot not assigned: " + slotIndex);
             return;
         }
 

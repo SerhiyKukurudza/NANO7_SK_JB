@@ -41,8 +41,6 @@ public class UIAudioManager : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        Debug.Log("Music volume: " + musicSource.volume);
-
         LoadVolumeSettings();
         PlayMainMenuMusic();
     }
@@ -86,39 +84,27 @@ public class UIAudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene carregada: " + scene.name);
-
         string name = scene.name;
 
         if (name == "Level1" || name == "Level2" || name == "Level3")
         {
-            Debug.Log("Parar música");
-
             StopMusic();
             return;
         }
-        Debug.Log("Garantir música");
-
         EnsureMenuMusic();
     }
 
     private void EnsureMenuMusic()
     {
-        Debug.Log("EnsureMenuMusic");
-
         if (mainMenuMusic == null)
         {
-            Debug.Log("mainMenuMusic é NULL");
             return;
         }
-
-        Debug.Log("isPlaying = " + musicSource.isPlaying);
 
         musicSource.clip = mainMenuMusic;
 
         if (!musicSource.isPlaying)
         {
-            Debug.Log("Play()");
             musicSource.Play();
         }
     }
@@ -194,7 +180,7 @@ public class UIAudioManager : MonoBehaviour
 //    {
 //        string name = scene.name;
 
-//        // Gameplay scenes - parar música
+//        // Gameplay scenes - parar mï¿½sica
 //        if (name == "Level1" || name == "Level2" || name == "Level3")
 //        {
 //            StopMusic();

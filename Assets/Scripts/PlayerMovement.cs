@@ -40,11 +40,6 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        if (rb == null) Debug.LogError("Rigidbody2D not found!");
-        if (animator == null) Debug.LogError("Animator not found!");
-        if (spriteRenderer == null) Debug.LogError("SpriteRenderer not found!");
-        if (groundChecker == null) Debug.LogError("Ground checker not assigned!");
-        
         // Configure Rigidbody2D for platformer
         if (rb != null)
         {
