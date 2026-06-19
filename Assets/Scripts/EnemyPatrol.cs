@@ -31,6 +31,9 @@ public class EnemyPatrol : MonoBehaviour
     private float attackTimer = 0f;
     private GameObject targetPlayer;
     
+    private bool shouldTeleport = false;
+    private float teleportDelayTimer = 0f;
+    
     [Header("Progression")]
     [SerializeField] private bool isBoss;
     [SerializeField] private string bossNameContains = "Boss";
@@ -51,6 +54,18 @@ public class EnemyPatrol : MonoBehaviour
     }
     void Update()
     {
+        // Processar delay de teleport (1 frame de espera antes de teleportar)
+        if (shouldTeleport)
+        {
+            teleportDelayTimer -= Time.deltaTime;
+            if (teleportDelayTimer <= 0f)
+            {
+                shouldTeleport = false;
+                TeleportToRandomPoint();
+                return;
+            }
+        }
+        
         if (isAttacking)
         {
             // Para inimigos normais, teleporta se chegar muito perto
@@ -317,26 +332,28 @@ public class EnemyPatrol : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Se está atacando e colidiu com o player, teleporta aleatoriamente
+        // Aplicar dano primeiro, depois agendar teleport se estiver atacando
+        ApplyDamageIfPlayer(other.gameObject);
+        
         if (isAttacking && IsPlayerCollision(other.gameObject))
         {
-            TeleportToRandomPoint();
-            return;
+            // Agendar teleport com delay de 1 frame
+            shouldTeleport = true;
+            teleportDelayTimer = 0.02f; // ~1 frame a 50fps
         }
-        
-        ApplyDamageIfPlayer(other.gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Se está atacando e colidiu com o player, teleporta aleatoriamente
+        // Aplicar dano primeiro, depois agendar teleport se estiver atacando
+        ApplyDamageIfPlayer(collision.gameObject);
+        
         if (isAttacking && IsPlayerCollision(collision.gameObject))
         {
-            TeleportToRandomPoint();
-            return;
+            // Agendar teleport com delay de 1 frame
+            shouldTeleport = true;
+            teleportDelayTimer = 0.02f; // ~1 frame a 50fps
         }
-        
-        ApplyDamageIfPlayer(collision.gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D other)

@@ -729,6 +729,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218419231}
     m_Modifications:
+    - target: {fileID: 4444444444444444, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f927f3313559b02479cbdc5424d8aeb4, type: 3}
     - target: {fileID: 3376599566652047586, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.083
@@ -3442,7 +3446,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c2d00bf6d858c054f9a8551516bc3365, type: 3}
+  m_Resource: {fileID: 8300000, guid: 05703a76b7ef1ca4ead9091d5dffb22c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3958,6 +3962,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218419231}
     m_Modifications:
+    - target: {fileID: 4444444444444444, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f927f3313559b02479cbdc5424d8aeb4, type: 3}
     - target: {fileID: 3376599566652047586, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.083
@@ -4695,6 +4703,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218419231}
     m_Modifications:
+    - target: {fileID: 4444444444444444, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f927f3313559b02479cbdc5424d8aeb4, type: 3}
     - target: {fileID: 3376599566652047586, guid: 625a0e29d7e94304aaad16f50485a06b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 39.083
@@ -55328,7 +55340,7 @@ GameObject:
   - component: {fileID: 1973087172}
   - component: {fileID: 1973087171}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: WeaponAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

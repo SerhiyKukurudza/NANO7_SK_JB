@@ -179,3 +179,5 @@ MonoBehaviour:
   fireStart: 2
   fireEnd: 2.55
   animationDuration: 2.6833334
+  fireSound: {fileID: 8300000, guid: f927f3313559b02479cbdc5424d8aeb4, type: 3}
+  soundVolume: 1

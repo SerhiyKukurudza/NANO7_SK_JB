@@ -736,7 +736,13 @@ MonoBehaviour:
   - {fileID: 9137611597656783715}
   speed: 3
   maxHealth: 100
-  damage: 1
+  damage: 5
+  detectionDistance: 3
+  attackPushForce: 5
+  attackDuration: 1
+  limitAttackToFirstTwoPoints: 1
+  isBoss: 0
+  bossNameContains: Boss
 --- !u!1 &7652866759386794909
 GameObject:
   m_ObjectHideFlags: 0
