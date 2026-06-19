@@ -12,8 +12,14 @@ public class ElectricTurretTrap : MonoBehaviour
     [SerializeField] private float fireEnd = 2.55f;            // 2:33 (2 seconds + 33 frames @ 60fps)
     [SerializeField] private float animationDuration = 2.6833334f; // Total animation length
     
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private float soundVolume = 1f;
+    
     private Animator animator;
+    private AudioSource audioSource;
     private float lastDamageTime = -999f;
+    private float lastFireSoundTime = -999f;
     private HashSet<GameObject> playersInTrigger = new HashSet<GameObject>();
 
     private void Start()
@@ -24,6 +30,15 @@ public class ElectricTurretTrap : MonoBehaviour
         {
             Debug.LogError("ElectricTurretTrap: No Animator found on this GameObject!");
         }
+        
+        // Setup AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 2D sound
     }
 
     private void Update()
@@ -56,7 +71,24 @@ public class ElectricTurretTrap : MonoBehaviour
         float currentTime = normalizedTime * animationDuration;
         
         // Check if we're in the "firing" window
-        return currentTime >= fireStart && currentTime <= fireEnd;
+        bool isFiring = currentTime >= fireStart && currentTime <= fireEnd;
+        
+        // Play fire sound once per firing cycle
+        if (isFiring && Time.time - lastFireSoundTime > 1f) // Ensure we don't play sound too frequently
+        {
+            PlayFireSound();
+            lastFireSoundTime = Time.time;
+        }
+        
+        return isFiring;
+    }
+
+    private void PlayFireSound()
+    {
+        if (fireSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(fireSound, soundVolume);
+        }
     }
 
     private void ApplyDamageIfNeeded(GameObject player)

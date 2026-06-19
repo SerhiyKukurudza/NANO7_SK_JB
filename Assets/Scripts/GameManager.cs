@@ -160,6 +160,18 @@ public class GameManager : MonoBehaviour
     {
         UIAudioManager.Instance?.PlayClick();
         RestoreGlobalRuntimeState();
+        
+        // Primeiro verifica se veio de Game Over (morte do player)
+        string gameOverScene = PlayerPrefs.GetString("GameOverFromScene", string.Empty);
+        if (!string.IsNullOrWhiteSpace(gameOverScene))
+        {
+            PlayerPrefs.DeleteKey("GameOverFromScene");
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(gameOverScene);
+            return;
+        }
+        
+        // Se não, usa a cena anterior (pausa normal)
         string sceneToRestart = string.IsNullOrWhiteSpace(pausedFromScene) ? "LevelSelect" : pausedFromScene;
         SceneManager.LoadScene(sceneToRestart);
     }

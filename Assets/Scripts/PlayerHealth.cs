@@ -205,6 +205,12 @@ public class PlayerHealth : MonoBehaviour
 
         Time.timeScale = 1f;
         AudioListener.pause = false;
+        
+        // Salvar a cena atual antes de carregar GameOverMenu para que Restart funcione corretamente
+        string currentScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("GameOverFromScene", currentScene);
+        PlayerPrefs.Save();
+        
         SceneManager.LoadScene("GameOverMenu");
     }
 
