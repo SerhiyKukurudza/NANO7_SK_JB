@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -93,68 +93,17 @@ public class SettingsManager : MonoBehaviour
         {
             cachedAudioManager.SetMasterVolume(value);
         }
+
+        WeaponSoundManager weaponSoundManager = WeaponSoundManager.GetInstance();
+        if (weaponSoundManager != null)
+        {
+            weaponSoundManager.SetMasterVolume(value);
+        }
     }
 
     #endregion
 
     #region RESOLUTION
-
-    //void SetupResolution()
-    //{
-    //    Resolution[] allResolutions = Screen.resolutions;
-
-    //    resolutionDropdown.ClearOptions();
-
-    //    List<string> options = new List<string>();
-    //    List<Resolution> uniqueResolutions = new List<Resolution>();
-
-    //    int currentIndex = 0;
-
-    //    for (int i = 0; i < allResolutions.Length; i++)
-    //    {
-    //        Resolution res = allResolutions[i];
-
-    //        string option = res.width + " x " + res.height;
-
-    //        // s� adiciona se esta resolu��o ainda n�o existir na lista
-    //        bool exists = false;
-
-    //        for (int j = 0; j < uniqueResolutions.Count; j++)
-    //        {
-    //            if (uniqueResolutions[j].width == res.width &&
-    //                uniqueResolutions[j].height == res.height)
-    //            {
-    //                exists = true;
-    //                break;
-    //            }
-    //        }
-
-    //        if (!exists)
-    //        {
-    //            uniqueResolutions.Add(res);
-    //            options.Add(option);
-
-    //            if (res.width == Screen.currentResolution.width &&
-    //                res.height == Screen.currentResolution.height)
-    //            {
-    //                currentIndex = uniqueResolutions.Count - 1;
-    //            }
-    //        }
-    //    }
-
-    //    resolutions = uniqueResolutions.ToArray();
-
-    //    resolutionDropdown.AddOptions(options);
-
-    //    int savedIndex = PlayerPrefs.GetInt("Resolution", currentIndex);
-
-    //    resolutionDropdown.value = savedIndex;
-    //    resolutionDropdown.RefreshShownValue();
-
-    //    ApplyResolution(savedIndex);
-
-    //    resolutionDropdown.onValueChanged.AddListener(ApplyResolution);
-    //}
 
     void SetupResolution()
     {
@@ -230,18 +179,12 @@ public class SettingsManager : MonoBehaviour
 
     #region NAVIGATION
 
-    /// <summary>
-    /// Called when player clicks the Back button
-    /// Returns to the previous scene (e.g., PauseMenu, MainMenu, LevelSelect, etc)
-    /// </summary>
     public void OnBackClicked()
     {
         UIAudioManager.Instance?.PlayClick();
         
-        // Get the previous scene name, default to MainMenu if not found
         string previousScene = PlayerPrefs.GetString("PreviousScene", "MainMenu");
         
-        // Restore game state if going back to a gameplay scene
         if (previousScene == "PauseMenu")
         {
             Time.timeScale = 0f;

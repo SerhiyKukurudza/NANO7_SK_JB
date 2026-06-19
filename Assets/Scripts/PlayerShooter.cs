@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShooter : MonoBehaviour
@@ -40,7 +40,6 @@ public class PlayerShooter : MonoBehaviour
         nextFireTime = Time.time + 1f / Mathf.Max(weapon.fireRate, 0.1f);
         playerWeaponAnimator?.TriggerShoot();
 
-        // Play weapon firing sound
         WeaponSoundManager soundManager = WeaponSoundManager.GetInstance();
         if (soundManager != null)
         {

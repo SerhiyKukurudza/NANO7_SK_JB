@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class WeaponPickupDisplay : MonoBehaviour
 {
-    [SerializeField] private int weaponIndex; // 0 = Pistol, 1 = Rifle, 2 = Shotgun
+    [SerializeField] private int weaponIndex;
     [SerializeField] private Sprite weaponSprite;
     [SerializeField] private float bobSpeed = 2f;
     [SerializeField] private float bobHeight = 0.5f;
@@ -16,7 +16,6 @@ public class WeaponPickupDisplay : MonoBehaviour
 
     void Start()
     {
-        // Add SpriteRenderer if not exists
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -25,7 +24,6 @@ public class WeaponPickupDisplay : MonoBehaviour
         spriteRenderer.sortingLayerName = sortingLayerName;
         spriteRenderer.sortingOrder = orderInLayer;
 
-        // Try to auto-load sprite from WeaponManager if not manually assigned.
         if (weaponSprite == null)
         {
             WeaponPickup pickup = GetComponent<WeaponPickup>();
@@ -68,7 +66,6 @@ public class WeaponPickupDisplay : MonoBehaviour
             }
         }
         
-        // Set sprite
         if (weaponSprite != null)
         {
             spriteRenderer.sprite = weaponSprite;
@@ -79,10 +76,8 @@ public class WeaponPickupDisplay : MonoBehaviour
             spriteRenderer.sprite = null;
         }
         
-        // Store starting position for bobbing
         startPosition = transform.position;
         
-        // Ensure we have a collider
         Collider2D collider = GetComponent<Collider2D>();
         if (collider == null)
         {
@@ -93,10 +88,8 @@ public class WeaponPickupDisplay : MonoBehaviour
 
     void Update()
     {
-        // Only bob if not picked up
         if (!alreadyPickedUp)
         {
-            // Bob animation
             float newY = startPosition.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
             transform.position = new Vector3(startPosition.x, newY, startPosition.z);
         }
@@ -104,17 +97,14 @@ public class WeaponPickupDisplay : MonoBehaviour
     
     public void OnPickedUp()
     {
-        // Mark as picked up
         alreadyPickedUp = true;
         
-        // Disable collider so it can't be picked up again
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
             collider.enabled = false;
         }
         
-        // Fade out and destroy
         StartCoroutine(FadeOutAndDestroy());
     }
 
@@ -137,7 +127,6 @@ public class WeaponPickupDisplay : MonoBehaviour
             yield return null;
         }
         
-        // Destroy after fade
         Destroy(gameObject);
     }
 }

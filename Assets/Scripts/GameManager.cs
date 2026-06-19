@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -22,34 +22,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //void Start()
-    //{
-    //}
-    //IEnumerator ApplyResolutionNextFrame()
-    //{
-    //    yield return null; // espera 1 frame
 
-    //    ApplySavedResolution();
-    //}
-    //void ApplySavedResolution()
-    //{
-    //    int index = PlayerPrefs.GetInt("Resolution", -1);
 
-    //    Resolution[] resolutions = Screen.resolutions;
 
-    //    if (index >= 0 && index < resolutions.Length)
-    //    {
-    //        Resolution r = resolutions[index];
-    //        Screen.SetResolution(r.width, r.height, Screen.fullScreen);
-    //    }
-    //    else
-    //    {
-    //        // primeira execu��o faz fallback seguro
-    //        Screen.SetResolution(1920, 1080, true);
-    //        PlayerPrefs.SetInt("Resolution", 0);
-    //        PlayerPrefs.Save();
-    //    }
-    //}
     void Update()
     {
         if (!IsGameplayScene(SceneManager.GetActiveScene().name))
@@ -102,7 +77,6 @@ public class GameManager : MonoBehaviour
         UIAudioManager.Instance?.PlayClick();
         RestoreGlobalRuntimeState();
         
-        // Save current scene so we can return to it from Settings
         string currentScene = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("PreviousScene", currentScene);
         PlayerPrefs.Save();
@@ -161,7 +135,6 @@ public class GameManager : MonoBehaviour
         UIAudioManager.Instance?.PlayClick();
         RestoreGlobalRuntimeState();
         
-        // Primeiro verifica se veio de Game Over (morte do player)
         string gameOverScene = PlayerPrefs.GetString("GameOverFromScene", string.Empty);
         if (!string.IsNullOrWhiteSpace(gameOverScene))
         {
@@ -171,7 +144,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        // Se não, usa a cena anterior (pausa normal)
         string sceneToRestart = string.IsNullOrWhiteSpace(pausedFromScene) ? "LevelSelect" : pausedFromScene;
         SceneManager.LoadScene(sceneToRestart);
     }

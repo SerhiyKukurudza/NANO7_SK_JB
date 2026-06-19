@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIAudioManager : MonoBehaviour
@@ -6,8 +6,8 @@ public class UIAudioManager : MonoBehaviour
     public static UIAudioManager Instance;
 
     [Header("Audio Sources")]
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
+    [SerializeField] private AudioSource mainMenuAudioSource;
+    [SerializeField] private AudioSource uiSfxAudioSource;
 
     [Header("Clips")]
     public AudioClip clickSound;
@@ -25,19 +25,33 @@ public class UIAudioManager : MonoBehaviour
         }
 
         Instance = this;
-        // UiManager already persists across scenes, so this component should not call DontDestroyOnLoad directly.
 
-        // MUSIC SOURCE
-        musicSource = gameObject.AddComponent<AudioSource>();
-        musicSource.loop = true;
-        musicSource.playOnAwake = false;
-        musicSource.volume = 0.5f;
+        if (mainMenuAudioSource == null)
+        {
+            Transform mainMenuSourceTransform = transform.Find("MainMenuAudioSource");
+            if (mainMenuSourceTransform != null)
+            {
+                mainMenuAudioSource = mainMenuSourceTransform.GetComponent<AudioSource>();
+            }
+        }
+        if (mainMenuAudioSource == null)
+        {
+            mainMenuAudioSource = GetComponent<AudioSource>();
+        }
+        if (mainMenuAudioSource == null)
+        {
+            mainMenuAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        mainMenuAudioSource.loop = true;
+        mainMenuAudioSource.playOnAwake = false;
+        mainMenuAudioSource.spatialBlend = 0f;
 
-        // SFX SOURCE
-        sfxSource = gameObject.AddComponent<AudioSource>();
-        sfxSource.playOnAwake = false;
-        sfxSource.spatialBlend = 0f;
-        sfxSource.volume = 1f;
+        if (uiSfxAudioSource == null)
+        {
+            uiSfxAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        uiSfxAudioSource.playOnAwake = false;
+        uiSfxAudioSource.spatialBlend = 0f;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -56,7 +70,7 @@ public class UIAudioManager : MonoBehaviour
 
     void Start()
     {
-        if (musicSource.clip == null)
+        if (mainMenuAudioSource.clip == null)
             PlayMainMenuMusic();
     }
 
@@ -69,11 +83,17 @@ public class UIAudioManager : MonoBehaviour
 
     void ApplyVolume()
     {
-        musicSource.volume = 0.5f * masterVolume;
-        sfxSource.volume = 1f * masterVolume;
+        if (mainMenuAudioSource != null)
+        {
+            mainMenuAudioSource.volume = 0.5f * masterVolume;
+        }
+
+        if (uiSfxAudioSource != null)
+        {
+            uiSfxAudioSource.volume = 1f * masterVolume;
+        }
     }
 
-    // CALLED FROM SETTINGS SLIDER
     public void SetMasterVolume(float value)
     {
         masterVolume = value;
@@ -84,15 +104,16 @@ public class UIAudioManager : MonoBehaviour
         ApplyVolume();
     }
 
-    // UI CLICK
     public void PlayClick()
     {
         if (clickSound != null)
-            sfxSource.PlayOneShot(clickSound);
+            uiSfxAudioSource.PlayOneShot(clickSound);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        LoadVolumeSettings();
+
         string name = scene.name;
 
         if (name == "Level1" || name == "Level2" || name == "Level3")
@@ -110,112 +131,29 @@ public class UIAudioManager : MonoBehaviour
             return;
         }
 
-        musicSource.clip = mainMenuMusic;
+        mainMenuAudioSource.clip = mainMenuMusic;
 
-        if (!musicSource.isPlaying)
+        if (!mainMenuAudioSource.isPlaying)
         {
-            musicSource.Play();
+            mainMenuAudioSource.Play();
         }
     }
 
-    // MENU MUSIC
     public void PlayMainMenuMusic()
     {
         if (mainMenuMusic == null) return;
 
-        musicSource.clip = mainMenuMusic;
+        mainMenuAudioSource.clip = mainMenuMusic;
 
-        if (!musicSource.isPlaying)
-            musicSource.Play();
+        if (!mainMenuAudioSource.isPlaying)
+            mainMenuAudioSource.Play();
     }
 
     public void StopMusic()
     {
-        musicSource.Stop();
+        if (mainMenuAudioSource != null)
+        {
+            mainMenuAudioSource.Stop();
+        }
     }
 }
-
-//using UnityEngine;
- //using UnityEngine.SceneManagement;
-
-//public class UIAudioManager : MonoBehaviour
-//{
-//    public static UIAudioManager Instance;
-
-//    [Header("Audio Sources")]
-//    private AudioSource musicSource;
-//    private AudioSource sfxSource;
-
-//    [Header("Clips")]
-//    public AudioClip clickSound;
-//    public AudioClip mainMenuMusic;
-
-//    void Awake()
-//    {
-//        if (Instance != null)
-//        {
-//            Destroy(gameObject);
-//            return;
-//        }
-
-//        Instance = this;
-//        DontDestroyOnLoad(gameObject);
-
-//        // MUSIC SOURCE
-//        musicSource = gameObject.AddComponent<AudioSource>();
-//        musicSource.loop = true;
-//        musicSource.playOnAwake = false;
-//        musicSource.volume = 0.5f;
-
-//        // SFX SOURCE
-//        sfxSource = gameObject.AddComponent<AudioSource>();
-//        sfxSource.playOnAwake = false;
-//        sfxSource.spatialBlend = 0f;
-//        sfxSource.volume = 1f;
-
-//        SceneManager.sceneLoaded += OnSceneLoaded;
-
-//        PlayMainMenuMusic();
-//    }
-
-//    // UI CLICK
-//    public void PlayClick()
-//    {
-//        if (clickSound != null)
-//            sfxSource.PlayOneShot(clickSound);
-//    }
-
-//    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-//    {
-//        string name = scene.name;
-
-//        // Gameplay scenes - parar m�sica
-//        if (name == "Level1" || name == "Level2" || name == "Level3")
-//        {
-//            StopMusic();
-//            return;
-//        }
-//        if (!musicSource.isPlaying)
-//        {
-//            PlayMainMenuMusic();
-//        }
-//    }
-
-//    // MENU MUSIC
-//    public void PlayMainMenuMusic()
-//    {
-//        if (mainMenuMusic == null)
-//            return;
-
-//        if (musicSource.clip == mainMenuMusic && musicSource.isPlaying)
-//            return;
-
-//        musicSource.clip = mainMenuMusic;
-//        musicSource.Play();
-//    }
-
-//    public void StopMusic()
-//    {
-//        musicSource.Stop();
-//    }
-//}

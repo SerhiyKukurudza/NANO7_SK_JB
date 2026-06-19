@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class Projectile : MonoBehaviour
@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
         damage = dmg;
         range = rng;
 
-        // Flip sprite if travelling left
         if (direction.x < 0f)
         {
             Vector3 s = transform.localScale;
@@ -38,10 +37,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Ignore the player's own collider
         if (other.CompareTag("Player")) return;
 
-        // Try to apply damage to an enemy
         EnemyPatrol enemy = other.GetComponent<EnemyPatrol>();
         if (enemy == null)
             enemy = other.GetComponentInParent<EnemyPatrol>();
@@ -53,7 +50,6 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        // Destroy on any solid (non-trigger) surface
         if (!other.isTrigger)
         {
             Destroy(gameObject);

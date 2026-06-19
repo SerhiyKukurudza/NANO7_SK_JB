@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Collections;
 using UnityEngine;
@@ -291,7 +291,6 @@ public class UiManager : MonoBehaviour
 
     private IEnumerator ApplyPendingRestoreAfterSceneStart()
     {
-        // Wait one frame so scene objects complete Start() and don't override restored state.
         yield return null;
 
         if (pendingRestoreData == null)
@@ -597,7 +596,6 @@ public class UiManager : MonoBehaviour
             return;
         }
 
-        // DontDestroyOnLoad only works on root objects.
         GameObject hudRoot = persistentGameplayHudRoot.transform.root.gameObject;
         if (persistentGameplayHudRoot != hudRoot)
         {
@@ -624,7 +622,6 @@ public class UiManager : MonoBehaviour
                 continue;
             }
 
-            // Only treat roots with HotbarController as player HUD duplicates.
             if (candidateRoot.GetComponentInChildren<HotbarController>(true) != null)
             {
                 Destroy(candidateRoot);

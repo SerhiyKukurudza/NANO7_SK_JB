@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UIItemAnimator : MonoBehaviour
@@ -26,7 +26,6 @@ public class UIItemAnimator : MonoBehaviour
             return;
         }
         
-        // Set initial sprite
         itemImage.sprite = animationFrames[0];
     }
 
@@ -35,13 +34,10 @@ public class UIItemAnimator : MonoBehaviour
         if (animationFrames == null || animationFrames.Length == 0)
             return;
         
-        // Update frame timer
         frameTimer += Time.deltaTime;
         
-        // Calculate frame duration
         float frameDuration = 1f / frameRate;
         
-        // Switch frame if timer exceeds duration
         if (frameTimer >= frameDuration)
         {
             frameTimer -= frameDuration;

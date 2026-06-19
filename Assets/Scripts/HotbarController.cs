@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -22,7 +22,6 @@ public class HotbarController : MonoBehaviour
 
         weaponManager.OnWeaponChanged += HandleWeaponChanged;
         
-        // Initialize slot colors based on locked/unlocked status.
         for (int i = 0; i < hotbarSlotImages.Length; i++)
         {
             if (hotbarSlotImages[i] != null)
@@ -42,7 +41,6 @@ public class HotbarController : MonoBehaviour
 
     void Update()
     {
-        // Select weapon with number keys (1, 2, 3)
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             SelectSlot(0);
@@ -66,13 +64,11 @@ public class HotbarController : MonoBehaviour
             return;
         }
         
-        // Deselect previous slot
         if (currentSelectedSlot >= 0 && hotbarSlotImages[currentSelectedSlot] != null)
         {
             hotbarSlotImages[currentSelectedSlot].color = unselectedColor;
         }
         
-        // Select new slot
         currentSelectedSlot = slotIndex;
         if (hotbarSlotImages[slotIndex] != null)
         {

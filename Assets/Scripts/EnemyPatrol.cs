@@ -1,10 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    //public float testDamageInterval = 1f;
-    //private float timer;
 
     public Transform[] patrolPoints;
     public float speed = 2f;
@@ -54,7 +52,6 @@ public class EnemyPatrol : MonoBehaviour
     }
     void Update()
     {
-        // Processar delay de teleport (1 frame de espera antes de teleportar)
         if (shouldTeleport)
         {
             teleportDelayTimer -= Time.deltaTime;
@@ -68,10 +65,8 @@ public class EnemyPatrol : MonoBehaviour
         
         if (isAttacking)
         {
-            // Para inimigos normais, teleporta se chegar muito perto
             if (!IsBoss())
             {
-                // Verificar se colidiu com o player durante o ataque
                 if (targetPlayer == null)
                 {
                     targetPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -80,7 +75,6 @@ public class EnemyPatrol : MonoBehaviour
                 if (targetPlayer != null)
                 {
                     float distanceToPlayer = Vector2.Distance(transform.position, targetPlayer.transform.position);
-                    // Se muito perto durante o ataque, teleporta
                     if (distanceToPlayer < 1f)
                     {
                         TeleportToRandomPoint();
@@ -96,10 +90,8 @@ public class EnemyPatrol : MonoBehaviour
                     {
                         animator.SetBool("IsAttacking", false);
                     }
-                    // Depois de atacar, volta ao ponto 0
                     i = 0;
                     
-                    // Parar o movimento do Rigidbody
                     if (rb != null)
                     {
                         rb.linearVelocity = Vector2.zero;
@@ -109,7 +101,6 @@ public class EnemyPatrol : MonoBehaviour
             }
             else
             {
-                // Para BOSS: apenas contar o tempo de animação, continua patrulhando
                 attackTimer -= Time.deltaTime;
                 if (attackTimer <= 0)
                 {
@@ -119,14 +110,11 @@ public class EnemyPatrol : MonoBehaviour
                         animator.SetBool("IsAttacking", false);
                     }
                 }
-                // Não return, continua para patrulhar
             }
         }
 
-        // Detectar player
         DetectPlayer();
 
-        // Se não está atacando, patrulhar normalmente (apenas entre pontos 0 e 1 se limitado)
         int maxPatrolIndex = (limitAttackToFirstTwoPoints && patrolPoints.Length > 1) ? 1 : patrolPoints.Length - 1;
         
         if (Vector2.Distance(transform.position, patrolPoints[i].position) < 0.25f)
@@ -144,7 +132,6 @@ public class EnemyPatrol : MonoBehaviour
 
     private void DetectPlayer()
     {
-        // Encontrar o player se ainda não foi encontrado
         if (targetPlayer == null)
         {
             targetPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -155,7 +142,6 @@ public class EnemyPatrol : MonoBehaviour
             return;
         }
 
-        // Verificar se o player está dentro da zona permitida (entre pontos 0 e 1)
         if (limitAttackToFirstTwoPoints && patrolPoints.Length > 1)
         {
             if (!IsPlayerInAllowedZone())
@@ -168,7 +154,6 @@ public class EnemyPatrol : MonoBehaviour
 
         if (distanceToPlayer < detectionDistance)
         {
-            // Iniciar ataque para ambos (BOSS e inimigos normais)
             StartAttackAnimation(targetPlayer.transform.position);
         }
     }
@@ -177,7 +162,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (isAttacking)
         {
-            return; // Já está atacando
+            return;
         }
 
         isAttacking = true;
@@ -188,11 +173,9 @@ public class EnemyPatrol : MonoBehaviour
             animator.SetBool("IsAttacking", true);
         }
 
-        // Determinar direção para o player
         Vector2 directionToPlayer = (playerPosition - transform.position).normalized;
         spriteRenderer.flipX = directionToPlayer.x < 0f;
 
-        // Para inimigos normais, aplicar movimento de ataque
         if (!IsBoss())
         {
             ApplyAttackMovement(directionToPlayer);
@@ -208,13 +191,11 @@ public class EnemyPatrol : MonoBehaviour
 
         Vector2 attackVelocity = directionToPlayer * attackPushForce;
         
-        // Limitar o movimento dentro da zona permitida
         if (limitAttackToFirstTwoPoints && patrolPoints.Length > 1)
         {
             float minX = Mathf.Min(patrolPoints[0].position.x, patrolPoints[1].position.x);
             float maxX = Mathf.Max(patrolPoints[0].position.x, patrolPoints[1].position.x);
             
-            // Se tentar sair dos limites, reduza a velocidade
             if (transform.position.x + attackVelocity.x * Time.deltaTime < minX || 
                 transform.position.x + attackVelocity.x * Time.deltaTime > maxX)
             {
@@ -332,27 +313,23 @@ public class EnemyPatrol : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Aplicar dano primeiro, depois agendar teleport se estiver atacando
         ApplyDamageIfPlayer(other.gameObject);
         
         if (isAttacking && IsPlayerCollision(other.gameObject))
         {
-            // Agendar teleport com delay de 1 frame
             shouldTeleport = true;
-            teleportDelayTimer = 0.02f; // ~1 frame a 50fps
+            teleportDelayTimer = 0.02f;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Aplicar dano primeiro, depois agendar teleport se estiver atacando
         ApplyDamageIfPlayer(collision.gameObject);
         
         if (isAttacking && IsPlayerCollision(collision.gameObject))
         {
-            // Agendar teleport com delay de 1 frame
             shouldTeleport = true;
-            teleportDelayTimer = 0.02f; // ~1 frame a 50fps
+            teleportDelayTimer = 0.02f;
         }
     }
 
@@ -383,18 +360,15 @@ public class EnemyPatrol : MonoBehaviour
             return;
         }
 
-        // Resetar a velocidade PRIMEIRO
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
         }
 
-        // Escolher aleatoriamente entre ponto 0 e ponto 1
         int randomPoint = Random.Range(0, 2);
         transform.position = patrolPoints[randomPoint].position;
         i = randomPoint;
 
-        // Resetar o ataque
         isAttacking = false;
         attackTimer = 0f;
         if (animator != null)

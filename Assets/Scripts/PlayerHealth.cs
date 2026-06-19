@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -33,7 +33,6 @@ public class PlayerHealth : MonoBehaviour
 
     private HealthBar FindPlayerHealthBar()
     {
-        // Prefer a HealthBar inside the same HUD root that contains the HotbarController.
         HotbarController hotbar = FindFirstObjectByType<HotbarController>();
         if (hotbar != null)
         {
@@ -259,7 +258,6 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 1f;
         AudioListener.pause = false;
         
-        // Salvar a cena atual antes de carregar GameOverMenu para que Restart funcione corretamente
         string currentScene = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("GameOverFromScene", currentScene);
         PlayerPrefs.Save();

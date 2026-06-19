@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerWeaponAnimator : MonoBehaviour
 {
@@ -13,7 +13,6 @@ public class PlayerWeaponAnimator : MonoBehaviour
     private WeaponManager weaponManager;
     private Rigidbody2D rb;
     
-    // Animator parameter hashes
     private int hashHasWeapon = Animator.StringToHash(HasWeaponParameter);
     private int hashHasPistol = Animator.StringToHash(HasPistolParameter);
     private int hashHasRifle = Animator.StringToHash(HasRifleParameter);
@@ -61,10 +60,8 @@ public class PlayerWeaponAnimator : MonoBehaviour
             return;
         }
         
-        // Initialize with no weapon selected.
         SetWeaponFlags(-1);
         
-        // Subscribe to weapon change events
         weaponManager.OnWeaponChanged += OnWeaponChanged;
     }
 
@@ -210,7 +207,6 @@ public class PlayerWeaponAnimator : MonoBehaviour
 
     void OnDestroy()
     {
-        // Unsubscribe from events
         if (weaponManager != null)
         {
             weaponManager.OnWeaponChanged -= OnWeaponChanged;

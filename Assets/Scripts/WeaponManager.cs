@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -14,8 +14,8 @@ public class WeaponData
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] private WeaponData[] allWeapons = new WeaponData[3]; // Pistol, Rifle, Shotgun
-    [SerializeField] private Transform[] hotbarSlots = new Transform[3]; // 3 slots na hotbar
+    [SerializeField] private WeaponData[] allWeapons = new WeaponData[3];
+    [SerializeField] private Transform[] hotbarSlots = new Transform[3];
     [SerializeField, Range(0.2f, 0.45f)] private float hotbarIconInset = 0.28f;
     
     private WeaponData[] unlockedWeapons = new WeaponData[3];
@@ -25,7 +25,6 @@ public class WeaponManager : MonoBehaviour
     private static WeaponManager instance;
     private bool isInitialized;
     
-    // Event system for weapon changes
     public delegate void WeaponChangeDelegate(WeaponData newWeapon, int slotIndex);
     public event WeaponChangeDelegate OnWeaponChanged;
 
@@ -52,14 +51,12 @@ public class WeaponManager : MonoBehaviour
 
         isInitialized = true;
 
-        // Initialize empty hotbar - don't unlock anything by default
         for (int i = 0; i < hotbarSlots.Length; i++)
         {
             unlockedWeapons[i] = null;
             SetSlotLockedVisual(i);
         }
         
-        // Hotbar starts completely empty
     }
 
     public void PickupWeapon(int weaponIndex)
@@ -89,17 +86,14 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        // Do not unlock the same weapon twice.
         if (unlockedWeapons[weaponIndex] != null)
         {
             return;
         }
 
-        // Weapon index maps directly to its slot index.
         unlockedWeapons[weaponIndex] = allWeapons[weaponIndex];
         UpdateHotbarDisplay(weaponIndex);
 
-        // Auto-select the newly picked weapon so the animator updates immediately.
         SelectWeapon(weaponIndex);
 
     }
@@ -117,7 +111,6 @@ public class WeaponManager : MonoBehaviour
         }
         
         currentWeaponIndex = slotIndex;
-        // Trigger weapon change event
         if (OnWeaponChanged != null)
         {
             OnWeaponChanged(unlockedWeapons[slotIndex], slotIndex);

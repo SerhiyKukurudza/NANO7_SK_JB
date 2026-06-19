@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponSoundManager : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class WeaponSoundManager : MonoBehaviour
 
     private WeaponManager weaponManager;
     private static WeaponSoundManager instance;
+    private float masterVolume = 1f;
 
     void Awake()
     {
-        // Singleton pattern
         if (instance == null)
         {
             instance = this;
@@ -30,7 +31,6 @@ public class WeaponSoundManager : MonoBehaviour
             return;
         }
 
-        // Setup audio source if not assigned
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -41,17 +41,27 @@ public class WeaponSoundManager : MonoBehaviour
         }
 
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0f; // 2D sound (not spatial)
+        audioSource.spatialBlend = 0f;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        LoadMasterVolumeFromPrefs();
+    }
+
+    void OnDestroy()
+    {
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            instance = null;
+        }
     }
 
     void Start()
     {
         weaponManager = FindFirstObjectByType<WeaponManager>();
+        LoadMasterVolumeFromPrefs();
     }
 
-    /// <summary>
-    /// Plays the firing sound for the current weapon
-    /// </summary>
     public void PlayWeaponFireSound()
     {
         if (weaponManager == null)
@@ -66,22 +76,19 @@ public class WeaponSoundManager : MonoBehaviour
         PlayWeaponFireSound(currentWeaponIndex);
     }
 
-    /// <summary>
-    /// Plays the firing sound for a specific weapon by index
-    /// </summary>
     public void PlayWeaponFireSound(int weaponIndex)
     {
         AudioClip clipToPlay = null;
 
         switch (weaponIndex)
         {
-            case 0: // Pistol
+            case 0:
                 clipToPlay = pistolFireSound;
                 break;
-            case 1: // Rifle
+            case 1:
                 clipToPlay = rifleFireSound;
                 break;
-            case 2: // Shotgun
+            case 2:
                 clipToPlay = shotgunFireSound;
                 break;
             default:
@@ -90,7 +97,7 @@ public class WeaponSoundManager : MonoBehaviour
 
         if (clipToPlay != null && audioSource != null)
         {
-            audioSource.PlayOneShot(clipToPlay, fireVolume);
+            audioSource.PlayOneShot(clipToPlay, fireVolume * masterVolume);
         }
     }
 
@@ -102,5 +109,25 @@ public class WeaponSoundManager : MonoBehaviour
     public void SetFireVolume(float volume)
     {
         fireVolume = Mathf.Clamp01(volume);
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LoadMasterVolumeFromPrefs();
+
+        if (weaponManager == null)
+        {
+            weaponManager = FindFirstObjectByType<WeaponManager>();
+        }
+    }
+
+    private void LoadMasterVolumeFromPrefs()
+    {
+        masterVolume = Mathf.Clamp01(PlayerPrefs.GetFloat("MasterVolume", 1f));
     }
 }

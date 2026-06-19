@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class WeaponPickup : MonoBehaviour
 {
-    [SerializeField] private int weaponIndex; // 0 = Pistol, 1 = Rifle, 2 = Shotgun
+    [SerializeField] private int weaponIndex;
     
     private WeaponManager weaponManager;
     private bool pickedUp = false;
@@ -24,10 +24,9 @@ public class WeaponPickup : MonoBehaviour
     private void PickupWeapon()
     {
         if (weaponManager == null) return;
-        if (pickedUp) return; // Prevent double pickup
+        if (pickedUp) return;
         
         pickedUp = true;
-        // Prevent additional trigger events immediately.
         Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -35,7 +34,6 @@ public class WeaponPickup : MonoBehaviour
         }
         weaponManager.PickupWeapon(weaponIndex);
 
-        // Notify displays in the local pickup group (parent + siblings) to fade out.
         Transform visualRoot = transform.parent != null ? transform.parent : transform;
         WeaponPickupDisplay[] allDisplays = visualRoot.GetComponentsInChildren<WeaponPickupDisplay>(true);
         bool hasAnyDisplay = false;
@@ -64,12 +62,10 @@ public class WeaponPickup : MonoBehaviour
 
         if (hasAnyDisplay)
         {
-            // Safety fallback in case fade/destroy is interrupted.
             Destroy(visualRoot.gameObject, 0.6f);
         }
         else
         {
-            // If no display, hide any renderer immediately and destroy.
             Renderer[] renderers = visualRoot.GetComponentsInChildren<Renderer>(true);
             for (int i = 0; i < renderers.Length; i++)
             {

@@ -1,15 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class SawTrap : MonoBehaviour
 {
     [Header("Damage Settings")]
     [SerializeField] private int damage = 10;
-    [SerializeField] private float damageInterval = 0.5f; // Delay between damage hits
+    [SerializeField] private float damageInterval = 0.5f;
     
     [Header("Animation Timings (in seconds)")]
-    [SerializeField] private float animationDuration = 0.76666665f; // Total animation length
-    // Saw rotates during the entire animation cycle
+    [SerializeField] private float animationDuration = 0.76666665f;
     [SerializeField] private bool damageWholeAnimation = true;
     
     private Animator animator;
@@ -28,13 +27,11 @@ public class SawTrap : MonoBehaviour
 
     private void Update()
     {
-        // Check each player currently in the trigger
         foreach (GameObject player in playersInTrigger)
         {
             if (player == null)
                 continue;
 
-            // Saw always does damage during animation
             if (damageWholeAnimation)
             {
                 ApplyDamageIfNeeded(player);
@@ -44,7 +41,6 @@ public class SawTrap : MonoBehaviour
 
     private void ApplyDamageIfNeeded(GameObject player)
     {
-        // Only apply damage if enough time has passed since last damage
         if (Time.time - lastDamageTime < damageInterval)
             return;
 
@@ -75,7 +71,6 @@ public class SawTrap : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Ensure the player is in our set (in case they were added late)
         if (collision.CompareTag("Player") || collision.transform.root.CompareTag("Player"))
         {
             playersInTrigger.Add(collision.gameObject);

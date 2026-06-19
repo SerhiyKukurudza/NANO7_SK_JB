@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -6,12 +6,12 @@ public class BarrierTrap : MonoBehaviour
 {
     [Header("Damage Settings")]
     [SerializeField] private int damage = 10;
-    [SerializeField] private float damageInterval = 0.5f; // Delay between damage hits
+    [SerializeField] private float damageInterval = 0.5f;
     
     [Header("Animation Timings (in seconds)")]
-    [SerializeField] private float lasersActiveStart = 0.1666667f; // 0:10 (10 frames at 60fps)
-    [SerializeField] private float lasersActiveEnd = 0.5833333f;   // 0:35 (35 frames at 60fps)
-    [SerializeField] private float animationDuration = 2.5166667f; // Total animation length
+    [SerializeField] private float lasersActiveStart = 0.1666667f;
+    [SerializeField] private float lasersActiveEnd = 0.5833333f;
+    [SerializeField] private float animationDuration = 2.5166667f;
 
     [Header("Open Settings")]
     [SerializeField] private bool isFinalBarrier;
@@ -48,7 +48,6 @@ public class BarrierTrap : MonoBehaviour
             return;
         }
 
-        // Check each player currently in the trigger
         foreach (GameObject player in playersInTrigger)
         {
             if (player == null)
@@ -66,22 +65,17 @@ public class BarrierTrap : MonoBehaviour
         if (animator == null)
             return false;
 
-        // Get the current animation state info
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         
-        // Get the normalized time (0 to 1) of the current animation
-        float normalizedTime = stateInfo.normalizedTime % 1f; // % 1 to handle looping
+        float normalizedTime = stateInfo.normalizedTime % 1f;
         
-        // Convert normalized time to actual seconds
         float currentTime = normalizedTime * animationDuration;
         
-        // Check if we're in the "lasers active" window
         return currentTime >= lasersActiveStart && currentTime <= lasersActiveEnd;
     }
 
     private void ApplyDamageIfNeeded(GameObject player)
     {
-        // Only apply damage if enough time has passed since last damage
         if (Time.time - lastDamageTime < damageInterval)
             return;
 
@@ -112,7 +106,6 @@ public class BarrierTrap : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Ensure the player is in our set (in case they were added late)
         if (collision.CompareTag("Player") || collision.transform.root.CompareTag("Player"))
         {
             playersInTrigger.Add(collision.gameObject);
@@ -127,7 +120,6 @@ public class BarrierTrap : MonoBehaviour
         }
     }
 
-    // Method to update timings if needed (useful for testing or if animation changes)
     public void SetLaserTiming(float activeStart, float activeEnd, float totalDuration)
     {
         lasersActiveStart = activeStart;
