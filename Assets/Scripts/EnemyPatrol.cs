@@ -12,11 +12,15 @@ public class EnemyPatrol : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private HealthBar healthBar;
+    private bool isDead;
 
     public int maxHealth = 100;
     private int currentHealth;
 
     public int damage = 1;
+    [Header("Progression")]
+    [SerializeField] private bool isBoss;
+    [SerializeField] private string bossNameContains = "Boss";
 
     void Start()
     {
@@ -54,6 +58,11 @@ public class EnemyPatrol : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
 
@@ -64,8 +73,62 @@ public class EnemyPatrol : MonoBehaviour
 
         if (currentHealth == 0)
         {
+            isDead = true;
+            HandleDeathSideEffects();
             Destroy(gameObject);
         }
+    }
+
+    private void HandleDeathSideEffects()
+    {
+        if (!IsBoss())
+        {
+            return;
+        }
+
+        BarrierTrap[] barriers = FindObjectsByType<BarrierTrap>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < barriers.Length; i++)
+        {
+            if (barriers[i] != null && barriers[i].IsFinalBarrier)
+            {
+                barriers[i].OpenBarrier();
+            }
+        }
+
+        GameObject finalBarrierObject = GameObject.Find("Final_Barrier");
+        if (finalBarrierObject == null)
+        {
+            return;
+        }
+
+        BarrierTrap barrierTrap = finalBarrierObject.GetComponent<BarrierTrap>();
+        if (barrierTrap != null && barrierTrap.IsFinalBarrier)
+        {
+            barrierTrap.OpenBarrier();
+            return;
+        }
+    }
+
+    private bool IsBoss()
+    {
+        if (isBoss)
+        {
+            return true;
+        }
+
+        if (CompareTag("Boss") || transform.root.CompareTag("Boss"))
+        {
+            return true;
+        }
+
+        string objectName = gameObject.name;
+        if (!string.IsNullOrEmpty(objectName) && objectName.Contains(bossNameContains))
+        {
+            return true;
+        }
+
+        string rootName = transform.root != null ? transform.root.name : string.Empty;
+        return !string.IsNullOrEmpty(rootName) && rootName.Contains(bossNameContains);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
