@@ -8,6 +8,7 @@ public class NextLevel : MonoBehaviour
     [SerializeField] private float loadingDuration = 1.5f;
     [SerializeField] private bool requireFinalBarrierOpen = true;
     [SerializeField] private BarrierTrap finalBarrier;
+    [SerializeField] private bool skipLoadingForWinScenes = true;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -32,7 +33,23 @@ public class NextLevel : MonoBehaviour
             return;
         }
 
-        LevelTransitionLoader.LoadLevelWithInterlude(nextLevelName, nextLevelValue, loadingSceneName, loadingDuration);
+        string loadingSceneToUse = loadingSceneName;
+        if (skipLoadingForWinScenes && IsWinScene(nextLevelName))
+        {
+            loadingSceneToUse = string.Empty;
+        }
+
+        LevelTransitionLoader.LoadLevelWithInterlude(nextLevelName, nextLevelValue, loadingSceneToUse, loadingDuration);
+    }
+
+    private bool IsWinScene(string sceneName)
+    {
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            return false;
+        }
+
+        return sceneName == "WinScene" || sceneName == "WinMenu";
     }
 
     private bool IsFinalBarrierStillClosed()

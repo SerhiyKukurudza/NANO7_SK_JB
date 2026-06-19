@@ -30,6 +30,12 @@ public class UiManager : MonoBehaviour
             return Instance;
         }
 
+        UiManager existing = FindFirstObjectByType<UiManager>();
+        if (existing != null)
+        {
+            return existing;
+        }
+
         GameObject managerObject = new GameObject("UIManager");
         return managerObject.AddComponent<UiManager>();
     }
@@ -105,6 +111,7 @@ public class UiManager : MonoBehaviour
         }
 
         EnsureGameplayHudForScene(SceneManager.GetActiveScene().name);
+        RebindPlayerHealthToPersistentHud();
     }
 
     void Update()
@@ -272,6 +279,7 @@ public class UiManager : MonoBehaviour
         AudioListener.pause = false;
 
         EnsureGameplayHudForScene(scene.name);
+        RebindPlayerHealthToPersistentHud();
 
         if (pendingRestoreData == null || pendingRestoreData.sceneName != scene.name)
         {
@@ -643,6 +651,28 @@ public class UiManager : MonoBehaviour
     private bool IsGameplayScene(string sceneName)
     {
         return sceneName == "Level1" || sceneName == "Level2" || sceneName == "Level3";
+    }
+
+    private void RebindPlayerHealthToPersistentHud()
+    {
+        if (persistentGameplayHudRoot == null)
+        {
+            return;
+        }
+
+        HealthBar hudHealthBar = persistentGameplayHudRoot.GetComponentInChildren<HealthBar>(true);
+        if (hudHealthBar == null)
+        {
+            return;
+        }
+
+        PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
+        if (playerHealth == null)
+        {
+            return;
+        }
+
+        playerHealth.BindHealthBar(hudHealthBar, true);
     }
 
 }

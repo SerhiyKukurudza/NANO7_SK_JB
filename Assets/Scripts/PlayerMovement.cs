@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private PlayerHealth playerHealth;
     
     private Vector2 velocity = Vector2.zero;
     private float movementInput = 0f;
@@ -58,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerHealth = GetComponent<PlayerHealth>();
         baseMovementSpeed = movementSpeed;
         baseJumpForce = jumpForce;
         normalScale = transform.localScale;
@@ -182,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
         
         isDashing = true;
         nextDashCooldown = dashRecoveryCooldown;
+        playerHealth?.SetTemporaryInvincible(true);
         
         // Trigger animation FIRST
         animator.SetTrigger(hashDash);
@@ -198,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
     private void StopDash()
     {
         isDashing = false;
+        playerHealth?.SetTemporaryInvincible(false);
     }
 
     private void UpdateAnimations()

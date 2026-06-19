@@ -23,6 +23,7 @@ public class WeaponManager : MonoBehaviour
     private int currentLevel = 1;
     
     private static WeaponManager instance;
+    private bool isInitialized;
     
     // Event system for weapon changes
     public delegate void WeaponChangeDelegate(WeaponData newWeapon, int slotIndex);
@@ -33,15 +34,24 @@ public class WeaponManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
     void Start()
     {
+        if (isInitialized)
+        {
+            return;
+        }
+
+        isInitialized = true;
+
         // Initialize empty hotbar - don't unlock anything by default
         for (int i = 0; i < hotbarSlots.Length; i++)
         {

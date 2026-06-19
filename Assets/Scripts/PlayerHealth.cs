@@ -24,18 +24,26 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
 
     private bool isDead;
+    private int temporaryInvincibilityCounter;
 
     private void Awake()
     {
-        if (healthBar == null)
-        {
-            healthBar = FindPlayerHealthBar();
-        }
+        EnsureHealthBarBinding();
     }
 
     private HealthBar FindPlayerHealthBar()
     {
-        // Prefer a HealthBar on a Canvas tagged "PlayerHUD" or named "Canvas"
+        // Prefer a HealthBar inside the same HUD root that contains the HotbarController.
+        HotbarController hotbar = FindFirstObjectByType<HotbarController>();
+        if (hotbar != null)
+        {
+            HealthBar hudBar = hotbar.GetComponentInParent<Canvas>()?.GetComponentInChildren<HealthBar>(true);
+            if (hudBar != null)
+            {
+                return hudBar;
+            }
+        }
+
         HealthBar[] all = FindObjectsByType<HealthBar>(FindObjectsSortMode.None);
         foreach (HealthBar bar in all)
         {
@@ -48,9 +56,35 @@ public class PlayerHealth : MonoBehaviour
         return null;
     }
 
+    private void EnsureHealthBarBinding()
+    {
+        if (healthBar == null)
+        {
+            healthBar = FindPlayerHealthBar();
+        }
+    }
+
+    public void BindHealthBar(HealthBar bar, bool refreshNow = true)
+    {
+        if (bar == null)
+        {
+            return;
+        }
+
+        healthBar = bar;
+
+        if (refreshNow)
+        {
+            healthBar.SetMaxHealth(maxHealth);
+            healthBar.SetHealth(currentHealth);
+            onHealthChanged?.Invoke(currentHealth, maxHealth);
+        }
+    }
+
     private void Start()
     {
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        EnsureHealthBarBinding();
 
         if (healthBar != null)
         {
@@ -64,9 +98,11 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (amount <= 0) return;
-        if (invincible) return;
+        if (invincible || temporaryInvincibilityCounter > 0) return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
+
+        EnsureHealthBarBinding();
 
         if (healthBar != null)
         {
@@ -87,6 +123,8 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
 
+        EnsureHealthBarBinding();
+
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHealth);
@@ -98,6 +136,8 @@ public class PlayerHealth : MonoBehaviour
     public void SetHealth(int value)
     {
         currentHealth = Mathf.Clamp(value, 0, maxHealth);
+
+        EnsureHealthBarBinding();
 
         if (healthBar != null)
         {
@@ -120,6 +160,8 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+
+        EnsureHealthBarBinding();
 
         if (healthBar != null)
         {
@@ -148,6 +190,17 @@ public class PlayerHealth : MonoBehaviour
     public bool IsInvincible()
     {
         return invincible;
+    }
+
+    public void SetTemporaryInvincible(bool value)
+    {
+        if (value)
+        {
+            temporaryInvincibilityCounter++;
+            return;
+        }
+
+        temporaryInvincibilityCounter = Mathf.Max(0, temporaryInvincibilityCounter - 1);
     }
 
     public void ForceKill()

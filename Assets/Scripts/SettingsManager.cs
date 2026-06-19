@@ -16,10 +16,20 @@ public class SettingsManager : MonoBehaviour
     private Image brightnessOverlay;
 
     private Resolution[] resolutions;
+    private UIAudioManager cachedAudioManager;
 
     void Start()
     {
-        brightnessOverlay = UiManager.Instance.brightnessOverlay;
+        if (UiManager.Instance != null)
+        {
+            brightnessOverlay = UiManager.Instance.brightnessOverlay;
+        }
+
+        cachedAudioManager = UIAudioManager.Instance;
+        if (cachedAudioManager == null)
+        {
+            cachedAudioManager = FindFirstObjectByType<UIAudioManager>();
+        }
 
         SetupBrightness();
         SetupVolume();
@@ -60,14 +70,29 @@ public class SettingsManager : MonoBehaviour
 
         masterVolumeSlider.value = value;
 
-        UIAudioManager.Instance.SetMasterVolume(value);
+        if (cachedAudioManager != null)
+        {
+            cachedAudioManager.SetMasterVolume(value);
+        }
 
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
     }
 
     public void OnMasterVolumeChanged(float value)
     {
-        UIAudioManager.Instance.SetMasterVolume(value);
+        if (cachedAudioManager == null)
+        {
+            cachedAudioManager = UIAudioManager.Instance;
+            if (cachedAudioManager == null)
+            {
+                cachedAudioManager = FindFirstObjectByType<UIAudioManager>();
+            }
+        }
+
+        if (cachedAudioManager != null)
+        {
+            cachedAudioManager.SetMasterVolume(value);
+        }
     }
 
     #endregion

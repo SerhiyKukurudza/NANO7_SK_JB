@@ -929,6 +929,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3004398070250493395, guid: 36bcaf11c36141c4c8fa0115d2c1f860, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 455244781}
+    - target: {fileID: -3004398070250493395, guid: 36bcaf11c36141c4c8fa0115d2c1f860, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 7635962487818488812, guid: b64e7ba4aa2d11c49a0fb4c10e334d6a, type: 3}
     - target: {fileID: 1606514730250042116, guid: 36bcaf11c36141c4c8fa0115d2c1f860, type: 3}
       propertyPath: m_Name
       value: Player
@@ -978,6 +986,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36bcaf11c36141c4c8fa0115d2c1f860, type: 3}
+--- !u!4 &455244781 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8980930921214267678, guid: 36bcaf11c36141c4c8fa0115d2c1f860, type: 3}
+  m_PrefabInstance: {fileID: 455244780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &456646441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2277,6 +2290,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
+      propertyPath: damage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
+      propertyPath: maxHealth
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 7489310881321903838, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3473,7 +3498,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -3501,12 +3526,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff1015d411055e43b6d9cc5bfd36f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NextLevel
-  nextLevelName: 
+  nextLevelName: WinMenu
   nextLevelValue: 0
   loadingSceneName: LoadingScene
   loadingDuration: 1.5
   requireFinalBarrierOpen: 1
   finalBarrier: {fileID: 1610944679}
+  skipLoadingForWinScenes: 1
 --- !u!4 &1265901534
 Transform:
   m_ObjectHideFlags: 0

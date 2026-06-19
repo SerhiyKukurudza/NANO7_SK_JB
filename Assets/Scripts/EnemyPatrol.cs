@@ -283,7 +283,7 @@ public class EnemyPatrol : MonoBehaviour
             return true;
         }
 
-        if (CompareTag("Boss") || transform.root.CompareTag("Boss"))
+        if (HasTagSafe(gameObject, "Boss") || HasTagSafe(transform.root != null ? transform.root.gameObject : null, "Boss"))
         {
             return true;
         }
@@ -296,6 +296,23 @@ public class EnemyPatrol : MonoBehaviour
 
         string rootName = transform.root != null ? transform.root.name : string.Empty;
         return !string.IsNullOrEmpty(rootName) && rootName.Contains(bossNameContains);
+    }
+
+    private bool HasTagSafe(GameObject target, string tagName)
+    {
+        if (target == null || string.IsNullOrWhiteSpace(tagName))
+        {
+            return false;
+        }
+
+        try
+        {
+            return target.CompareTag(tagName);
+        }
+        catch (UnityException)
+        {
+            return false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
