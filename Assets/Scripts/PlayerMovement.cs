@@ -3,6 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private enum PlayerSizeState
+    {
+        Small,
+        Normal,
+        Large
+    }
+
     [Header("Movement")]
     [SerializeField] private float movementSpeed = 5f;
     
@@ -17,6 +24,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashForce = 15f;
     [SerializeField] private float dashRecoveryCooldown = 0.5f;
     [SerializeField] private float dashDuration = 0.3f;
+
+    [Header("Size")]
+    [SerializeField] private Vector3 smallScale = new Vector3(4.5f, 4.5f, 4.5f);
+    [SerializeField] private Vector3 normalScale = new Vector3(6f, 6f, 6f);
+    [SerializeField] private Vector3 largeScale = new Vector3(7.5f, 7.5f, 7.5f);
+    [SerializeField] private float smallSpeedMultiplier = 1.25f;
+    [SerializeField] private float largeSpeedMultiplier = 0.8f;
+    [SerializeField] private float smallJumpMultiplier = 1.2f;
+    [SerializeField] private float largeJumpMultiplier = 0.8f;
     
     private Rigidbody2D rb;
     private Animator animator;
@@ -27,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false;
     private bool isDashing = false;
     private float nextDashCooldown = 0f;
+    private float baseMovementSpeed;
+    private float baseJumpForce;
+    private PlayerSizeState currentSizeState = PlayerSizeState.Normal;
     
     // Animator parameter hashes (for performance)
     private int hashVelocity = Animator.StringToHash("Velocity");
@@ -39,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        baseMovementSpeed = movementSpeed;
+        baseJumpForce = jumpForce;
+        normalScale = transform.localScale;
+        ApplySizeState(currentSizeState);
         
         // Configure Rigidbody2D for platformer
         if (rb != null)
@@ -73,6 +96,21 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.shiftKey.wasPressedThisFrame && nextDashCooldown <= 0 && !isDashing)
         {
             Dash();
+        }
+
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            DecreaseSize();
+        }
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            IncreaseSize();
+        }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            ResetSize();
         }
         
         // Update dash cooldown timer
@@ -185,6 +223,65 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         nextDashCooldown = 0f;
         enabled = true;
+    }
+
+    private void DecreaseSize()
+    {
+        if (currentSizeState == PlayerSizeState.Normal)
+        {
+            ApplySizeState(PlayerSizeState.Small);
+            return;
+        }
+
+        if (currentSizeState == PlayerSizeState.Large)
+        {
+            ApplySizeState(PlayerSizeState.Normal);
+        }
+    }
+
+    private void IncreaseSize()
+    {
+        if (currentSizeState == PlayerSizeState.Small)
+        {
+            ApplySizeState(PlayerSizeState.Normal);
+            return;
+        }
+
+        if (currentSizeState == PlayerSizeState.Normal)
+        {
+            ApplySizeState(PlayerSizeState.Large);
+        }
+    }
+
+    private void ResetSize()
+    {
+        ApplySizeState(PlayerSizeState.Normal);
+    }
+
+    private void ApplySizeState(PlayerSizeState newState)
+    {
+        currentSizeState = newState;
+
+        switch (currentSizeState)
+        {
+            case PlayerSizeState.Small:
+                transform.localScale = smallScale;
+                movementSpeed = baseMovementSpeed * smallSpeedMultiplier;
+                jumpForce = baseJumpForce * smallJumpMultiplier;
+                break;
+
+            case PlayerSizeState.Large:
+                transform.localScale = largeScale;
+                movementSpeed = baseMovementSpeed * largeSpeedMultiplier;
+                jumpForce = baseJumpForce * largeJumpMultiplier;
+                break;
+
+            default:
+                transform.localScale = normalScale;
+                movementSpeed = baseMovementSpeed;
+                jumpForce = baseJumpForce;
+                break;
+        }
     }
 
 }

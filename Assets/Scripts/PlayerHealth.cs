@@ -20,12 +20,32 @@ public class PlayerHealth : MonoBehaviour
     public UnityEvent onDeath;
     public UnityEvent<int, int> onHealthChanged;
 
-    private HealthBar healthBar;
+    [Header("UI")]
+    [SerializeField] private HealthBar healthBar;
+
     private bool isDead;
 
     private void Awake()
     {
-        healthBar = FindFirstObjectByType<HealthBar>();
+        if (healthBar == null)
+        {
+            healthBar = FindPlayerHealthBar();
+        }
+    }
+
+    private HealthBar FindPlayerHealthBar()
+    {
+        // Prefer a HealthBar on a Canvas tagged "PlayerHUD" or named "Canvas"
+        HealthBar[] all = FindObjectsByType<HealthBar>(FindObjectsSortMode.None);
+        foreach (HealthBar bar in all)
+        {
+            Canvas canvas = bar.GetComponentInParent<Canvas>();
+            if (canvas != null)
+            {
+                return bar;
+            }
+        }
+        return null;
     }
 
     private void Start()

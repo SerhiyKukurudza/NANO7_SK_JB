@@ -554,7 +554,8 @@ public class UiManager : MonoBehaviour
             cheatOverlayStyle.padding = new RectOffset(12, 12, 8, 8);
         }
 
-        Rect area = new Rect(20f, 20f, Mathf.Min(Screen.width - 40f, 520f), 44f);
+        float msgWidth = Mathf.Min(Screen.width - 40f, 520f);
+        Rect area = new Rect((Screen.width - msgWidth) * 0.5f, 20f, msgWidth, 44f);
         GUI.Box(area, cheatOverlayMessage, cheatOverlayStyle);
     }
 
