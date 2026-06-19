@@ -199,16 +199,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   movementSpeed: 5
-  jumpForce: 5
-  customGravity: -9.81
+  jumpForce: 10
+  customGravity: -8.5
   groundChecker: {fileID: 4316968480667606852}
   groundCheckRadius: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  dashForce: 10
+  dashForce: 7
   dashRecoveryCooldown: 0.5
   dashDuration: 0.2
+  smallScale: {x: 4.5, y: 4.5, z: 4.5}
+  normalScale: {x: 6, y: 6, z: 6}
+  largeScale: {x: 7.5, y: 7.5, z: 7.5}
+  smallSpeedMultiplier: 1.25
+  largeSpeedMultiplier: 0.8
+  smallJumpMultiplier: 1.2
+  largeJumpMultiplier: 0.8
 --- !u!114 &6697947940119287939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52eadd2c83ca8a4aaedb07f8f29a60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAnimator
+  shootHoldDuration: 0.18
+  idleShootVelocityThreshold: 0.05
+  shootCrossfadeDuration: 0.05
 --- !u!114 &-655595920975058136
 MonoBehaviour:
   m_ObjectHideFlags: 0
