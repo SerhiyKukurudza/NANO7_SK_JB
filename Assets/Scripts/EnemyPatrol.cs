@@ -53,6 +53,17 @@ public class EnemyPatrol : MonoBehaviour
         ApplyDamageIfPlayer(collision.gameObject);
     }
 
+    public void TakeDamage(int amount)
+    {
+        if (amount <= 0) return;
+
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void ApplyDamageIfPlayer(GameObject candidate)
     {
         if (candidate == null)
