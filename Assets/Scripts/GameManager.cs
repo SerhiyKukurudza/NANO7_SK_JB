@@ -101,6 +101,12 @@ public class GameManager : MonoBehaviour
     {
         UIAudioManager.Instance?.PlayClick();
         RestoreGlobalRuntimeState();
+        
+        // Save current scene so we can return to it from Settings
+        string currentScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("PreviousScene", currentScene);
+        PlayerPrefs.Save();
+        
         SceneManager.LoadScene("Settings");
     }
 
