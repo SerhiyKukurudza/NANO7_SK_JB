@@ -22,6 +22,7 @@ public class WeaponSoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -53,6 +54,11 @@ public class WeaponSoundManager : MonoBehaviour
     /// </summary>
     public void PlayWeaponFireSound()
     {
+        if (weaponManager == null)
+        {
+            weaponManager = FindFirstObjectByType<WeaponManager>();
+        }
+
         if (weaponManager == null)
             return;
 

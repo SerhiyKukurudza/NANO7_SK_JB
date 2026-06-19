@@ -83,10 +83,28 @@ public class LevelTransitionLoader : MonoBehaviour
         }
 
         SceneManager.LoadScene(targetSceneName);
-        yield return null;
+        yield return WaitForSceneSystemsReady();
 
         ApplyTransitionState(transitionState);
         transitionInProgress = false;
+    }
+
+    private IEnumerator WaitForSceneSystemsReady()
+    {
+        const int maxFrames = 20;
+        for (int i = 0; i < maxFrames; i++)
+        {
+            bool hasPlayerHealth = FindFirstObjectByType<PlayerHealth>() != null;
+            bool hasWeaponManager = FindFirstObjectByType<WeaponManager>() != null;
+            bool hasPlayerMovement = FindFirstObjectByType<PlayerMovement>() != null;
+
+            if (hasPlayerHealth && hasWeaponManager && hasPlayerMovement)
+            {
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 
     private TransitionState CaptureTransitionState()
