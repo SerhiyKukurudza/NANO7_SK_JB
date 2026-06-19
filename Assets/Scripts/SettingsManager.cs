@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 
@@ -90,7 +91,7 @@ public class SettingsManager : MonoBehaviour
 
     //        string option = res.width + " x " + res.height;
 
-    //        // só adiciona se esta resolução ainda não existir na lista
+    //        // sï¿½ adiciona se esta resoluï¿½ï¿½o ainda nï¿½o existir na lista
     //        bool exists = false;
 
     //        for (int j = 0; j < uniqueResolutions.Count; j++)
@@ -198,6 +199,36 @@ public class SettingsManager : MonoBehaviour
         Screen.fullScreen = value;
 
         PlayerPrefs.SetInt("Fullscreen", value ? 1 : 0);
+    }
+
+    #endregion
+
+    #region NAVIGATION
+
+    /// <summary>
+    /// Called when player clicks the Back button
+    /// Returns to the previous scene (e.g., PauseMenu, MainMenu, LevelSelect, etc)
+    /// </summary>
+    public void OnBackClicked()
+    {
+        UIAudioManager.Instance?.PlayClick();
+        
+        // Get the previous scene name, default to MainMenu if not found
+        string previousScene = PlayerPrefs.GetString("PreviousScene", "MainMenu");
+        
+        // Restore game state if going back to a gameplay scene
+        if (previousScene == "PauseMenu")
+        {
+            Time.timeScale = 0f;
+            AudioListener.pause = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
+        }
+        
+        SceneManager.LoadScene(previousScene);
     }
 
     #endregion

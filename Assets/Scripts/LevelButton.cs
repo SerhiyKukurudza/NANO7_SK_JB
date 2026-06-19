@@ -48,10 +48,10 @@ public class LevelButton : MonoBehaviour
         //     button.onClick.AddListener(OnLevelSelected);
         // }
         if (button != null)
-{
-    button.onClick.AddListener(OnLevelSelected);
-    Debug.Log("Listener adicionado");
-}
+        {
+            button.onClick.AddListener(OnLevelSelected);
+            Debug.Log("Listener adicionado");
+        }
     }
 
     private void OnLevelSelected()
