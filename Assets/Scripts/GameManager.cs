@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("LevelReached", 1);
             PlayerPrefs.Save();
         }
+
+        if (IsGameplayScene(SceneManager.GetActiveScene().name) && UiManager.Instance == null)
+        {
+            UiManager.EnsureInstance();
+        }
     }
 
     //void Start()

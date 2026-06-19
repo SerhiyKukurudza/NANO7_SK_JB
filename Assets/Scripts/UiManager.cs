@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager Instance;
     private static bool loadingFromSave;
+    private static bool godModeEnabled;
 
     public static bool ConsumeLoadingFromSaveFlag()
     {
@@ -65,8 +66,17 @@ public class UiManager : MonoBehaviour
     public UIAudioManager audioManager;
     public Image brightnessOverlay;
 
+    [Header("Cheats")]
+    [SerializeField] private bool cheatsEnabled = true;
+    [SerializeField] private bool logCheatActions = true;
+    [SerializeField] private bool showCheatOverlay = true;
+    [SerializeField] private float cheatMessageDuration = 2.5f;
+
     private const string SaveFileName = "savegame.json";
     private GameSaveData pendingRestoreData;
+    private string cheatOverlayMessage = string.Empty;
+    private float cheatOverlayUntilTime;
+    private GUIStyle cheatOverlayStyle;
 
     void Awake()
     {
@@ -85,15 +95,15 @@ public class UiManager : MonoBehaviour
     {
         if (audioManager == null)
             audioManager = GetComponentInChildren<UIAudioManager>();
+
+        if (!cheatsEnabled)
+        {
+            cheatsEnabled = true;
+        }
     }
 
     void Update()
     {
-        if (Keyboard.current == null)
-        {
-            return;
-        }
-
         string sceneName = SceneManager.GetActiveScene().name;
         bool isGameplayScene = sceneName == "Level1" || sceneName == "Level2" || sceneName == "Level3";
 
@@ -102,30 +112,74 @@ public class UiManager : MonoBehaviour
             return;
         }
 
-        if (Keyboard.current.f5Key.wasPressedThisFrame)
+        if (!cheatsEnabled)
         {
-            SaveGameNow();
+            return;
         }
 
-        if (Keyboard.current.f9Key.wasPressedThisFrame)
+        HandleCheatInputs();
+    }
+
+    private void HandleCheatInputs()
+    {
+        if (WasCheatKeyPressed(KeyCode.F1, Keyboard.current != null && Keyboard.current.f1Key.wasPressedThisFrame))
         {
-            LoadSavedGame();
+            ToggleGodMode();
         }
 
-        if (Keyboard.current.f6Key.wasPressedThisFrame)
+        if (WasCheatKeyPressed(KeyCode.F5, Keyboard.current != null && Keyboard.current.f5Key.wasPressedThisFrame))
+        {
+            if (SaveGameNow())
+            {
+                LogCheat("F5: Save game");
+            }
+        }
+
+        if (WasCheatKeyPressed(KeyCode.F9, Keyboard.current != null && Keyboard.current.f9Key.wasPressedThisFrame))
+        {
+            if (LoadSavedGame())
+            {
+                LogCheat("F9: Load game");
+            }
+        }
+
+        if (WasCheatKeyPressed(KeyCode.F6, Keyboard.current != null && Keyboard.current.f6Key.wasPressedThisFrame))
         {
             HealPlayerToFull();
+            LogCheat("F6: Heal to full");
         }
 
-        if (Keyboard.current.f7Key.wasPressedThisFrame)
+        if (WasCheatKeyPressed(KeyCode.F7, Keyboard.current != null && Keyboard.current.f7Key.wasPressedThisFrame))
         {
             UnlockAllLevels();
+            LogCheat("F7: Unlock all levels");
         }
 
-        if (Keyboard.current.f8Key.wasPressedThisFrame)
+        if (WasCheatKeyPressed(KeyCode.F8, Keyboard.current != null && Keyboard.current.f8Key.wasPressedThisFrame))
         {
             UnlockAllWeapons();
+            LogCheat("F8: Unlock all weapons");
         }
+
+        if (WasCheatKeyPressed(KeyCode.F10, Keyboard.current != null && Keyboard.current.f10Key.wasPressedThisFrame))
+        {
+            LoadNextGameplayLevel();
+        }
+
+        if (WasCheatKeyPressed(KeyCode.F12, Keyboard.current != null && Keyboard.current.f12Key.wasPressedThisFrame))
+        {
+            ForcePlayerDeath();
+            LogCheat("F12: Force player death");
+        }
+    }
+
+    private bool WasCheatKeyPressed(KeyCode legacyKey, bool inputSystemPressed)
+    {
+        bool legacyPressed = false;
+#if ENABLE_LEGACY_INPUT_MANAGER
+        legacyPressed = Input.GetKeyDown(legacyKey);
+#endif
+        return legacyPressed || inputSystemPressed;
     }
 
     void OnDestroy()
@@ -238,6 +292,7 @@ public class UiManager : MonoBehaviour
         {
             playerHealth.SetMaxHealth(pendingRestoreData.maxHealth, false);
             playerHealth.SetHealth(pendingRestoreData.currentHealth);
+            playerHealth.SetInvincible(godModeEnabled);
         }
 
         WeaponManager weaponManager = FindFirstObjectByType<WeaponManager>();
@@ -329,7 +384,7 @@ public class UiManager : MonoBehaviour
 
     private void HealPlayerToFull()
     {
-        PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
+        PlayerHealth playerHealth = FindPlayerHealth();
         if (playerHealth == null)
         {
             return;
@@ -392,6 +447,115 @@ public class UiManager : MonoBehaviour
         }
 
         return health;
+    }
+
+    private void ToggleGodMode()
+    {
+        godModeEnabled = !godModeEnabled;
+        ApplyGodModeToCurrentPlayer();
+        LogCheat(godModeEnabled ? "F1: God Mode ON" : "F1: God Mode OFF");
+    }
+
+    private void ApplyGodModeToCurrentPlayer()
+    {
+        PlayerHealth playerHealth = FindPlayerHealth();
+        if (playerHealth == null)
+        {
+            return;
+        }
+
+        playerHealth.SetInvincible(godModeEnabled);
+    }
+
+    private void LoadNextGameplayLevel()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        string nextScene = null;
+
+        if (currentScene == "Level1")
+        {
+            nextScene = "Level2";
+            PlayerPrefs.SetInt("LevelReached", Mathf.Max(PlayerPrefs.GetInt("LevelReached", 1), 2));
+        }
+        else if (currentScene == "Level2")
+        {
+            nextScene = "Level3";
+            PlayerPrefs.SetInt("LevelReached", Mathf.Max(PlayerPrefs.GetInt("LevelReached", 1), 3));
+        }
+        else if (currentScene == "Level3")
+        {
+            nextScene = "WinMenu";
+        }
+
+        if (string.IsNullOrWhiteSpace(nextScene))
+        {
+            return;
+        }
+
+        PlayerPrefs.Save();
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+        SceneManager.LoadScene(nextScene);
+        LogCheat($"F10: Jump to {nextScene}");
+    }
+
+    private void ForcePlayerDeath()
+    {
+        PlayerHealth playerHealth = FindPlayerHealth();
+        if (playerHealth == null)
+        {
+            return;
+        }
+
+        playerHealth.ForceKill();
+    }
+
+    private void LogCheat(string message)
+    {
+        ShowCheatOverlayMessage(message);
+
+        if (!logCheatActions)
+        {
+            return;
+        }
+
+        Debug.Log($"[CHEAT] {message}");
+    }
+
+    private void ShowCheatOverlayMessage(string message)
+    {
+        if (!showCheatOverlay)
+        {
+            return;
+        }
+
+        cheatOverlayMessage = message;
+        cheatOverlayUntilTime = Time.unscaledTime + Mathf.Max(0.5f, cheatMessageDuration);
+    }
+
+    private void OnGUI()
+    {
+        if (!showCheatOverlay)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(cheatOverlayMessage) || Time.unscaledTime > cheatOverlayUntilTime)
+        {
+            return;
+        }
+
+        if (cheatOverlayStyle == null)
+        {
+            cheatOverlayStyle = new GUIStyle(GUI.skin.box);
+            cheatOverlayStyle.fontSize = 18;
+            cheatOverlayStyle.alignment = TextAnchor.MiddleCenter;
+            cheatOverlayStyle.normal.textColor = Color.white;
+            cheatOverlayStyle.padding = new RectOffset(12, 12, 8, 8);
+        }
+
+        Rect area = new Rect(20f, 20f, Mathf.Min(Screen.width - 40f, 520f), 44f);
+        GUI.Box(area, cheatOverlayMessage, cheatOverlayStyle);
     }
 
 }
