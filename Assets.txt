@@ -17,3 +17,8 @@ Asset: Sci-Fi Lab Tileset Decor Trap
 Link: https://foozlecc.itch.io/sci-fi-lab-tileset-decor-traps
 Author: Foozle
 Price: Free
+
+Asset: Sci-Fi Weapon Shots SFX
+Link: https://lentikula.itch.io/sci-fi-weapon-shots-sfx-freecc0
+Author: lentikula
+Price: Free
