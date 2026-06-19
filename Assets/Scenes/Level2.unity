@@ -49993,6 +49993,7 @@ MonoBehaviour:
   loadingDuration: 1.5
   requireFinalBarrierOpen: 1
   finalBarrier: {fileID: 18797224}
+  skipLoadingForWinScenes: 0
 --- !u!4 &1559536920
 Transform:
   m_ObjectHideFlags: 0
@@ -50595,11 +50596,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: speed
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: damage
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: isBoss
@@ -50607,7 +50608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345192400687552891, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: maxHealth
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7489310881321903838, guid: 4ebf30998b06a4b4996c692d5e3a6f33, type: 3}
       propertyPath: m_Controller

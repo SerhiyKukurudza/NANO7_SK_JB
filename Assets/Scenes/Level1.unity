@@ -55548,6 +55548,7 @@ MonoBehaviour:
   loadingDuration: 1.5
   requireFinalBarrierOpen: 1
   finalBarrier: {fileID: 1081047354}
+  skipLoadingForWinScenes: 0
 --- !u!4 &1986898830
 Transform:
   m_ObjectHideFlags: 0
