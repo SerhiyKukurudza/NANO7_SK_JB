@@ -284,4 +284,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public int GetSizeStateId()
+    {
+        return (int)currentSizeState;
+    }
+
+    public void SetSizeStateId(int stateId)
+    {
+        if (stateId < (int)PlayerSizeState.Small || stateId > (int)PlayerSizeState.Large)
+        {
+            stateId = (int)PlayerSizeState.Normal;
+        }
+
+        ApplySizeState((PlayerSizeState)stateId);
+    }
+
 }

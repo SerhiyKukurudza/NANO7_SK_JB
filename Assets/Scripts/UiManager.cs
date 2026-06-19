@@ -66,6 +66,9 @@ public class UiManager : MonoBehaviour
     public UIAudioManager audioManager;
     public Image brightnessOverlay;
 
+    [Header("Gameplay HUD")]
+    [SerializeField] private GameObject persistentGameplayHudRoot;
+
     [Header("Cheats")]
     [SerializeField] private bool cheatsEnabled = true;
     [SerializeField] private bool logCheatActions = true;
@@ -100,6 +103,8 @@ public class UiManager : MonoBehaviour
         {
             cheatsEnabled = true;
         }
+
+        EnsureGameplayHudForScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
@@ -265,6 +270,8 @@ public class UiManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         AudioListener.pause = false;
+
+        EnsureGameplayHudForScene(scene.name);
 
         if (pendingRestoreData == null || pendingRestoreData.sceneName != scene.name)
         {
@@ -557,6 +564,85 @@ public class UiManager : MonoBehaviour
         float msgWidth = Mathf.Min(Screen.width - 40f, 520f);
         Rect area = new Rect((Screen.width - msgWidth) * 0.5f, 20f, msgWidth, 44f);
         GUI.Box(area, cheatOverlayMessage, cheatOverlayStyle);
+    }
+
+    private void EnsureGameplayHudForScene(string sceneName)
+    {
+        bool gameplayScene = IsGameplayScene(sceneName);
+
+        if (!gameplayScene)
+        {
+            if (persistentGameplayHudRoot != null)
+            {
+                persistentGameplayHudRoot.SetActive(false);
+            }
+            return;
+        }
+
+        if (persistentGameplayHudRoot == null)
+        {
+            persistentGameplayHudRoot = FindGameplayHudRoot();
+        }
+
+        if (persistentGameplayHudRoot == null)
+        {
+            return;
+        }
+
+        // DontDestroyOnLoad only works on root objects.
+        GameObject hudRoot = persistentGameplayHudRoot.transform.root.gameObject;
+        if (persistentGameplayHudRoot != hudRoot)
+        {
+            persistentGameplayHudRoot = hudRoot;
+        }
+
+        DontDestroyOnLoad(persistentGameplayHudRoot);
+
+        persistentGameplayHudRoot.SetActive(true);
+
+        Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        HashSet<GameObject> processedRoots = new HashSet<GameObject>();
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            GameObject candidateRoot = canvases[i].transform.root.gameObject;
+
+            if (!processedRoots.Add(candidateRoot))
+            {
+                continue;
+            }
+
+            if (candidateRoot == persistentGameplayHudRoot)
+            {
+                continue;
+            }
+
+            // Only treat roots with HotbarController as player HUD duplicates.
+            if (candidateRoot.GetComponentInChildren<HotbarController>(true) != null)
+            {
+                Destroy(candidateRoot);
+            }
+        }
+    }
+
+    private GameObject FindGameplayHudRoot()
+    {
+        Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            GameObject candidateRoot = canvases[i].transform.root.gameObject;
+            bool hasHotbar = candidateRoot.GetComponentInChildren<HotbarController>(true) != null;
+            if (hasHotbar)
+            {
+                return candidateRoot;
+            }
+        }
+
+        return null;
+    }
+
+    private bool IsGameplayScene(string sceneName)
+    {
+        return sceneName == "Level1" || sceneName == "Level2" || sceneName == "Level3";
     }
 
 }
