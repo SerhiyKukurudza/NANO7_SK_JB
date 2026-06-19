@@ -40,6 +40,13 @@ public class PlayerShooter : MonoBehaviour
         nextFireTime = Time.time + 1f / Mathf.Max(weapon.fireRate, 0.1f);
         playerWeaponAnimator?.TriggerShoot();
 
+        // Play weapon firing sound
+        WeaponSoundManager soundManager = WeaponSoundManager.GetInstance();
+        if (soundManager != null)
+        {
+            soundManager.PlayWeaponFireSound();
+        }
+
         Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;
         bool facingLeft = spriteRenderer != null && spriteRenderer.flipX;
         Vector2 direction = facingLeft ? Vector2.left : Vector2.right;
