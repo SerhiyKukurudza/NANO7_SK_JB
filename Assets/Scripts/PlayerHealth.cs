@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 100;
 
+    [Header("Cheats")]
+    [SerializeField] private bool invincible;
+
     [Header("Death")]
     [SerializeField] private bool loadGameOverOnDeath = true;
     [SerializeField] private float gameOverDelaySeconds = 1.2f;
@@ -41,6 +44,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (amount <= 0) return;
+        if (invincible) return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
 
@@ -114,6 +118,16 @@ public class PlayerHealth : MonoBehaviour
     public int GetMaxHealth()
     {
         return maxHealth;
+    }
+
+    public void SetInvincible(bool value)
+    {
+        invincible = value;
+    }
+
+    public bool IsInvincible()
+    {
+        return invincible;
     }
 
     public void ForceKill()
